@@ -2,4 +2,13 @@
     <string name="app_name">KonekQ</string>
     <string name="phone_or_email_field_placeholder">Phone or Email</string>
     <string name="password_field_placeholder">Password</string>
+    <string name="we_ll_help_you">We\'ll help you</string>
+    <string name="join_konekq">Join KonekQ</string>
+    <string name="create_new_account_in_a_few_steps">Create new account in a few steps.</string>
+    <string name="what_s_your_name">What\'s Your Name?</string>
+    <string name="enter_the_name_you_use_in_real_life">Enter the name you use in real life.</string>
+    <string name="firstname">Firstname</string>
+    <string name="next">Next</string>
+    <string name="lastname">Lastname</string>
+    <string name="create_account">Create Account</string>
 </resources>

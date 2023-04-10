@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".login">
+    tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,8 +20,10 @@
             android:src="@drawable/plane"
             android:layout_gravity="end"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             />
         <ImageView
+            android:layout_marginTop="10dp"
             android:layout_width="127dp"
             android:layout_height="127dp"
             android:src="@drawable/logo_light"
@@ -32,31 +34,38 @@
             android:theme="@style/Theme.KonekQ.Material"
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content">
             <!--  Phone or Email field -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_layout_phone_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
                 android:hint="@string/phone_or_email_field_placeholder"
-                android:paddingTop="10dp">
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                app:boxBackgroundColor="@color/white"
+
+               >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_phone_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="textEmailAddress|phone"
-                    android:textSize="18sp" />
+                    android:inputType="text"
+
+                    android:maxLines="1"
+                    android:paddingTop="35dp"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
             <!--  passwordfield -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="15dp"
                 android:hint="@string/password_field_placeholder"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                app:boxBackgroundColor="@color/white"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/blue">
 
@@ -64,9 +73,10 @@
                     android:id="@+id/edit_text_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:inputType="textPassword"
-                    android:textSize="18sp" />
+                    android:maxLines="1"
+                    android:paddingTop="35dp"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -120,12 +130,16 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/outlined_btn_bg"
             android:layout_marginTop="32dp"
             android:text="Create new KonekQ Account"
             android:layout_marginBottom="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:textSize="12sp"
+
             />
     </LinearLayout>
 </ScrollView>
