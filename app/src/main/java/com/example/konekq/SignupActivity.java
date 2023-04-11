@@ -1,8 +1,10 @@
 package com.example.konekq;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ public class SignupActivity extends AppCompatActivity {
     private Fragment[] fragments;
     private Button btnNext;
     ImageButton btnBack;
+    String firstname, lastname,birthday;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,20 @@ public class SignupActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        // We set the listener on the child fragmentManager
+        getSupportFragmentManager()
+                .setFragmentResultListener("signup_fragment", this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                        String result = bundle.getString("bundleKey");
+                        // Do something with the result
+                        if(bundle.getString("fragment") == "welcome_fragment"){
+                        }
+
+                        OnClickBtnNext();
+                    }
+                });
     }
 
     private void OnClickBtnNext(){

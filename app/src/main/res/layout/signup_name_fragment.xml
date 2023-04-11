@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/white">
 
     <TextView
@@ -45,13 +45,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Material3.TextInputLayout.FilledBox"
-            app:boxBackgroundColor="@color/white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@color/white"
-            android:hint="@string/firstname">
+            android:hint="@string/firstname"
+            app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_firstname"
@@ -63,15 +63,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:background="@color/white"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
-            app:boxBackgroundColor="@color/white"
-            android:hint="@string/lastname">
+            android:hint="@string/lastname"
+            app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_lastname"
@@ -83,4 +83,17 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/btn_bg"
+        android:text="Next"
+        android:textColor="@color/white"
+        android:theme="@style/Theme.KonekQ.AppCompat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_inputs" />
 </androidx.constraintlayout.widget.ConstraintLayout>
