@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,9 @@ public class SignupGenderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         View root = view;
         ListView listView = root.findViewById(R.id.gender_listview);
-        //String gender[] = {"Female","Male","Custom"};
-
+        String genders[] = {"Female","Male","Custom"};
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), com.google.android.material.R.layout.support_simple_spinner_dropdown_item,genders);
+        listView.setAdapter(arrayAdapter);
         super.onViewCreated(root, savedInstanceState);
     }
 }

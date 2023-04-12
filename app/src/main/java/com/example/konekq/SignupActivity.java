@@ -17,7 +17,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class SignupActivity extends AppCompatActivity {
     private int id = 0;
-    private Fragment[] fragments;
+    private int index = 0;
+    private Class<?extends  Fragment>[] fragments;
     private Button btnNext;
     ImageButton btnBack;
     String firstname, lastname,birthday;
@@ -28,21 +29,29 @@ public class SignupActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
+        fragments = new Class[]{
+                SignUpWelcomeFragment.class,
+                SignUpNameFragment.class,
+                SignUpBirthdayFragment.class,
+                SignupGenderFragment.class
+        };
+        //set first fragment as active
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(
-                            R.anim.slide_in,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.slide_out
-                    )
-                    .setReorderingAllowed(true)
-                    .replace(R.id.fragmentContainerView, SignUpWelcomeFragment.class, null)
-                    .addToBackStack("welcome_fragment")
-                    .commit();
+           setActiveFragment(fragments[index]);
         }
+        // listener : when next button in the fragment is clicked
+        getSupportFragmentManager()
+                .setFragmentResultListener("signup_fragment", this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                        String result = bundle.getString("bundleKey");
+                        // Do something with the result
+                        if(bundle.getString("fragment") == "welcome_fragment"){
+                        }
+
+                        OnClickBtnNext();
+                    }
+                });
         
         
         btnNext = findViewById(R.id.btn_next);
@@ -61,56 +70,41 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // We set the listener on the child fragmentManager
-        getSupportFragmentManager()
-                .setFragmentResultListener("signup_fragment", this, new FragmentResultListener() {
-                    @Override
-                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                        String result = bundle.getString("bundleKey");
-                        // Do something with the result
-                        if(bundle.getString("fragment") == "welcome_fragment"){
-                        }
 
-                        OnClickBtnNext();
-                    }
-                });
     }
 
     private void OnClickBtnNext(){
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        if(fragment.getClass() == SignUpWelcomeFragment.class){
-            getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(
-                            R.anim.slide_in,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.slide_out
-                    )
-                    .setReorderingAllowed(true)
-                    .replace(R.id.fragmentContainerView, SignUpNameFragment.class, null)
-                    .addToBackStack("signup_fragment")
-                    .commit();
-        }else if(fragment.getClass() == SignUpNameFragment.class){
-            getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(
-                            R.anim.slide_in,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.slide_out
-                    )
-                    .setReorderingAllowed(true)
-                    .replace(R.id.fragmentContainerView, SignUpBirthdayFragment.class, null)
-                    .addToBackStack("signup_fragment")
-                    .commit();
+        if(index < fragments.length){
+            setActiveFragment(fragments[++index]);
+        }else{
+            finishSignUp();
         }
     }
 
+    private void finishSignUp(){
+
+    }
+
+    private void setActiveFragment(Class<? extends Fragment> fragmentClass){
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.slide_out
+                )
+                .setReorderingAllowed(true)
+                .replace(R.id.fragmentContainerView, fragmentClass, null)
+                .addToBackStack("signup_fragment")
+                .commit();
+    }
     @Override
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         if(fragment.getClass() == SignUpWelcomeFragment.class){
             finish();
         }else{
+            index--;
             super.onBackPressed();
         }
     }
