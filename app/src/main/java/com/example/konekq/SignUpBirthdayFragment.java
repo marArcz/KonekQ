@@ -14,8 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.google.type.DateTime;
-
 import java.time.LocalDate;
 import java.util.Calendar;
 
