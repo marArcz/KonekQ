@@ -2,10 +2,12 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval"
     android:innerRadius="50dp"
+    android:thicknessRatio="2.0"
+    android:useLevel="false"
    >
 
     <solid android:color="@android:color/transparent"></solid>
 
     <stroke android:width="5dp"
         android:color="@color/white"></stroke>
-        </shape>
+</shape>
