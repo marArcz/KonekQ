@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:background="@color/white"
-            android:hint="@string/mobile_number"
+            android:hint="Enter Email"
             app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:inputType="phone"
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingTop="30dp" />
         </com.google.android.material.textfield.TextInputLayout>
