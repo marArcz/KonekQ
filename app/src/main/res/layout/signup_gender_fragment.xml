@@ -52,6 +52,7 @@
         android:layout_marginHorizontal="30dp"
         android:background="@drawable/btn_bg"
         android:text="Next"
+        android:enabled="false"
         android:textColor="@color/white"
         android:theme="@style/Theme.KonekQ.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
