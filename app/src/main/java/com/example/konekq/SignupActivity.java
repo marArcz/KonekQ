@@ -33,7 +33,8 @@ public class SignupActivity extends AppCompatActivity {
                 SignUpWelcomeFragment.class,
                 SignUpNameFragment.class,
                 SignUpBirthdayFragment.class,
-                SignupGenderFragment.class
+                SignupGenderFragment.class,
+                SignUpEmailFragment.class
         };
         //set first fragment as active
         if (savedInstanceState == null) {
@@ -74,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void OnClickBtnNext(){
-        if(index < fragments.length){
+        if(index < fragments.length-1){
             setActiveFragment(fragments[++index]);
         }else{
             finishSignUp();

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.KonekQ.AppCompat"
         tools:targetApi="31">
         <activity
+            android:name=".Login2"
+            android:exported="false" />
+        <activity
             android:name=".activity_forget_password_successful_change_password"
             android:exported="false" />
         <activity

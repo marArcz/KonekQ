@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/main_background"
-    tools:context=".LoginActivity">
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        tools:context=".LoginActivity"
+        android:background="@drawable/main_background"
+        android:weightSum="5"
         android:orientation="vertical">
 
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="412dp"
-            android:layout_height="187dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_gravity="start"
             android:scaleType="fitStart"
             android:src="@drawable/top_bg"
@@ -25,7 +23,8 @@
 
         <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+           android:layout_height="0dp"
+            android:layout_weight="4"
            >
            <RelativeLayout
                android:layout_width="match_parent"
@@ -34,7 +33,7 @@
 
                <View
                    android:layout_width="match_parent"
-                   android:layout_height="550dp"
+                   android:layout_height="match_parent"
                    android:layout_marginTop="60dp"
                    android:background="@drawable/white_bg_drawable" />
 
@@ -44,17 +43,6 @@
                    android:layout_width="match_parent"
                    android:layout_height="238dp"
                    android:layout_alignParentTop="true">
-
-                   <TextView
-                       android:id="@+id/txtwelcome"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:fontFamily="@font/aleo_bold"
-                       android:text="Welcome to KonekQ!"
-                       android:textAlignment="center"
-                       android:textColor="@color/black"
-                       android:textSize="30sp" />
-
                    <ImageView
                        android:id="@+id/img_view_comment"
                        android:layout_width="110dp"
@@ -93,19 +81,22 @@
                        android:id="@+id/filledTextFieldEmail"
                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                        android:layout_width="match_parent"
-                       android:layout_height="50dp"
+                       android:layout_height="wrap_content"
                        android:layout_gravity="center"
                        android:layout_marginBottom="6dp"
-                       android:backgroundTint="@color/white"
                        android:hint="Enter Email"
+                       android:background="@android:color/transparent"
                        app:layout_constraintBottom_toTopOf="@+id/filledTextField"
                        app:layout_constraintEnd_toEndOf="parent"
                        app:layout_constraintHorizontal_bias="0.551"
                        app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintTop_toTopOf="parent">
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:helperText="*Required">
                        <!--this is the actual edit text which takes the input for the email-->
                        <com.google.android.material.textfield.TextInputEditText
                            android:id="@+id/edit_textEmail"
+                           android:drawablePadding="10dp"
+                           android:drawableLeft="@drawable/baseline_person_24"
                            android:layout_width="match_parent"
                            android:layout_height="match_parent"
                            android:inputType="textEmailAddress" />
@@ -125,7 +116,8 @@
                        app:layout_constraintHorizontal_bias="0.551"
                        app:layout_constraintStart_toStartOf="parent"
                        app:layout_constraintTop_toTopOf="parent"
-                       app:passwordToggleEnabled="true">
+                       app:endIconMode="password_toggle"
+                       app:helperText="*Required">
 
                        <!--this is the actual edit text which takes the input for the email-->
 
@@ -135,7 +127,7 @@
                            android:layout_height="match_parent"
                            android:drawableStart="@drawable/ic_baseline_person_outline_24"
                            android:inputType="textPassword"
-                           app:layout_constraintTop_toTopOf="parent" />
+                           android:drawablePadding="10dp"/>
 
                    </com.google.android.material.textfield.TextInputLayout>
                </LinearLayout>
@@ -197,7 +189,6 @@
                        android:background="@color/gray"
                        />
                </LinearLayout>
-
                <Button
                    android:id="@+id/btn_signup"
                    android:layout_width="match_parent"
@@ -213,4 +204,3 @@
            </RelativeLayout>
        </LinearLayout>
     </LinearLayout>
-</ScrollView>
