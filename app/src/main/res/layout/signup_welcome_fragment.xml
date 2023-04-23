@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:paddingVertical="30dp"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <ImageView
@@ -20,6 +21,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:layout_marginTop="36dp"
         android:text="@string/we_ll_help_you"
         android:textColor="@color/black"
@@ -34,7 +36,7 @@
         android:layout_marginTop="28dp"
         android:text="@string/join_konekq"
         android:textColor="@color/black"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -48,6 +50,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/create_new_account_in_a_few_steps"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +65,9 @@
         android:background="@drawable/btn_bg"
         android:text="Next"
         android:textColor="@color/white"
+        android:padding="16dp"
+        android:textSize="22sp"
+        android:textAlignment="center"
         android:theme="@style/Theme.KonekQ.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.266"

@@ -9,13 +9,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btnSignUp;
+    Button btnSignUp, btnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+      /*  getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);*/
 
         btnSignUp = findViewById(R.id.btn_signup);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -24,5 +24,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this,SignupActivity.class));
             }
         });
+
+        btnLogin = findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+            }
+        });
+
     }
 }
