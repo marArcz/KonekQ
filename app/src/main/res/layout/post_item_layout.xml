@@ -2,22 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray_100"
     android:elevation="3dp"
+    android:paddingBottom="5dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:background="@color/white"
         >
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_photo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
             android:src="@drawable/belle_profile"
-            android:background="@drawable/profile_photo"
-            android:clipToOutline="true"
-        />
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
