@@ -3,57 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="false">
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:background="@color/gray_600">
-       <LinearLayout
-           android:id="@+id/linearLayout2"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@color/white"
-           android:orientation="horizontal"
-           android:paddingHorizontal="10dp"
-           android:paddingVertical="10dp"
-           android:layout_alignParentStart="true"
-           android:layout_alignParentEnd="true"
-           android:layout_alignParentTop="true"
-           >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_600">
 
-           <de.hdodenhof.circleimageview.CircleImageView
-               android:id="@+id/profile_photo"
-               android:layout_width="50dp"
-               android:layout_height="50dp"
-               android:layout_gravity="center"
-               android:src="@drawable/belle_profile"
-               app:civ_border_width="2dp"
-               app:civ_border_color="@color/white"/>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp">
 
-           <Button
-               android:id="@+id/create_post"
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:layout_marginHorizontal="10dp"
-               android:layout_marginVertical="3dp"
-               android:background="@drawable/rounded_btn_bg"
-               android:backgroundTint="@color/gray_100"
-               android:text="What's on your mind?"
-               android:textColor="@color/black"
-               android:textSize="12sp"
-               android:textStyle="normal" />
-       </LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/belle_profile"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp" />
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/recycle_view"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_below="@id/linearLayout2"
-           android:layout_marginTop="5dp"
-           android:layout_alignParentStart="true"
-           android:layout_alignParentEnd="true"
-           android:layout_alignParentBottom="true"
-           android:background="@color/white"/>
-   </RelativeLayout>
+            <Button
+                android:id="@+id/create_post"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="3dp"
+                android:background="@drawable/rounded_btn_bg"
+                android:backgroundTint="@color/gray_100"
+                android:text="What's on your mind?"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/linearLayout2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:fadeScrollbars="true"
+            android:nestedScrollingEnabled="false"
+            app:fastScrollEnabled="false" />
+    </RelativeLayout>
 </ScrollView>
