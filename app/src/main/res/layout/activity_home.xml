@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.KonekQ.Material"
         android:background="@color/white"
+        android:elevation="3dp"
         >
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/home_tab_layout"
@@ -45,18 +46,18 @@
             android:layout_height="wrap_content"
             android:theme="@style/Theme.KonekQ.Material"
             tools:ignore="SpeakableTextPresentCheck"
-            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorColor="@color/blue"
             app:tabSelectedTextColor="@color/blue"
             app:tabSelectedTextAppearance="@color/blue"
             android:background="@color/white"
             android:elevation="3dp"
-            android:layout_marginBottom="3dp"
 
             >
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/baseline_home_24"
+
                 />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"

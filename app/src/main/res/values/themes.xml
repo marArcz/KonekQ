@@ -2,10 +2,10 @@
     <!-- Base application theme. -->
     <style name="Theme.KonekQ.Material" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/dark_blue</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/blue</item>
+        <item name="colorSecondary">@color/dark_blue</item>
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
