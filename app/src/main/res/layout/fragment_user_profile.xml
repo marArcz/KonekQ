@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:nestedScrollingEnabled="false"
     tools:context=".UserProfileFragment">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -51,6 +52,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/layout_profile_controls"
             android:layout_below="@+id/profile_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,17 +71,36 @@
 
             <Button
                 android:id="@+id/btnprofile_edit"
-                android:layout_width="155dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingHorizontal="15dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btn_bg"
                 android:drawableStart="@drawable/baseline_edit_24"
-                android:paddingStart="15dp"
                 android:text="Edit profile"
+                android:drawablePadding="10dp"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
         </LinearLayout>
-    </LinearLayout>
+        <ListView
+            android:layout_below="@id/layout_profile_controls"
+            android:id="@+id/listview_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/profile_bio_list_item_layout"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/listview_bio"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:fadeScrollbars="true"
+            android:nestedScrollingEnabled="false"
 
-
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/posts_recycler_view"
+            tools:listitem="@layout/post_item_layout"/>
+    </RelativeLayout>
 </ScrollView>

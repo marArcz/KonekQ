@@ -48,6 +48,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle_view"
+            tools:listitem="@layout/post_item_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/linearLayout2"

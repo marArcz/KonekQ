@@ -10,23 +10,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/header_layout">
+        android:id="@+id/header_layout"
+        android:background="@color/white"
+        android:elevation="1dp">
         <ImageView
             android:id="@+id/imageview_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/logofor_homepage_128"
+            android:src="@drawable/konekq_text_2"
             android:layout_centerVertical="true"/>
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:src="@drawable/baseline_menu_24"
+            android:scaleType="fitCenter"
+            android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"
             />
@@ -36,43 +40,46 @@
         android:id="@+id/tab_layout_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.KonekQ.Material"
+        android:theme="@style/Theme.KonekQ.Material.TabLayout"
         android:background="@color/white"
-        android:elevation="3dp"
+        android:elevation="1dp"
+
         >
         <com.google.android.material.tabs.TabLayout
+            style="@style/Theme.KonekQ.Material.TabLayout"
             android:id="@+id/home_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/Theme.KonekQ.Material"
             tools:ignore="SpeakableTextPresentCheck"
-            app:tabIndicatorColor="@color/blue"
+            app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/blue"
-            app:tabSelectedTextAppearance="@color/blue"
+            app:tabIconTint="@null"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="1dp"
+            android:layout_marginBottom="3dp"
             android:background="@color/white"
-            android:elevation="3dp"
-
             >
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/baseline_home_24"
+                android:icon="@drawable/home_icon"
+                />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/friends_icon"
 
                 />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/baseline_group_24"
+                android:icon="@drawable/person_icon"
                 />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/baseline_person_24"
-                />
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/baseline_notifications_24"
+                android:icon="@drawable/bell_icon"
                 />
         </com.google.android.material.tabs.TabLayout>
     </LinearLayout>

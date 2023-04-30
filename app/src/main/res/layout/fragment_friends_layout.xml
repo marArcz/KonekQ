@@ -10,8 +10,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Friends"
-        android:textSize="26dp"
+        android:text="@string/friends"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:layout_margin="10dp"
         android:textColor="@color/black"
@@ -27,22 +27,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Suggestions"
-            android:textSize="14dp"
+             android:textSize="14sp"
             android:background="@drawable/rounded_btn_bg"
             android:backgroundTint="@color/light_gray"
-            android:paddingHorizontal="14dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="0dp"
             android:textAllCaps="false"
+            android:layout_marginVertical="5dp"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Friends"
             android:textAllCaps="false"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:background="@drawable/rounded_btn_bg"
             android:backgroundTint="@color/light_gray"
-            android:paddingHorizontal="14dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="0dp"
             android:layout_marginStart="10dp"
+            android:layout_marginVertical="5dp"
             />
     </LinearLayout>
     <RelativeLayout
