@@ -4,12 +4,13 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/tab_item_icon"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/bell_icon"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
         />
     <TextView
         android:id="@+id/text_view_badge"

@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.konekq.Models.PostPhoto;
 import com.example.konekq.Models.Posts;
+import com.example.konekq.Models.User;
 
 import java.util.ArrayList;
 
@@ -69,13 +71,24 @@ public class NewsFeedFragment extends Fragment {
 
         RecyclerView recyclerView = root.findViewById(R.id.recycle_view);
         ArrayList<Posts> posts = new ArrayList<>();
-        posts.add(new Posts(0,0,"Hello Everyone!"));
-        posts.add(new Posts(0,0,"Good Morning!"));
-        posts.add(new Posts(0,0,"Good Afternoon!"));
-        posts.add(new Posts(0,0,"Good Evening!"));
-        posts.add(new Posts(0,0,"Good Night!"));
 
-        PostsRecyclerAdapter postsRecyclerAdapter = new PostsRecyclerAdapter(posts);
+        User user = new User();
+        user.setFirstname("Belle");
+        user.setFirstname("Soriano");
+
+        PostPhoto[] photos = {
+                new PostPhoto(0,0,"https://th.bing.com/th/id/OIP.V1iHyCRxOq-FLxKhMURGQQHaKk?pid=ImgDet&rs=1"),
+                new PostPhoto(0,0,"https://images.alphacoders.com/112/thumb-1920-112121.jpg"),
+                new PostPhoto(0,0,"https://th.bing.com/th/id/OIP.k8J4CZohC5RpLYxMvKKmZAHaEo?pid=ImgDet&rs=1")
+        };
+        posts.add(new Posts(user,0,0,"Hello Everyone!","https://images.alphacoders.com/112/thumb-1920-112121.jpg"));
+        posts.add(new Posts(user,0,0,"Good Morning!"));
+        posts.add(new Posts(user,0,0,"Good Afternoon!", "https://th.bing.com/th/id/OIP.V1iHyCRxOq-FLxKhMURGQQHaKk?pid=ImgDet&rs=1"));
+        posts.add(new Posts(user,0,0,"Good Evening!","https://th.bing.com/th/id/OIP.k8J4CZohC5RpLYxMvKKmZAHaEo?pid=ImgDet&rs=1"));
+        posts.add(new Posts(user,0,0,"Good Night!"));
+
+        PostsRecyclerAdapter postsRecyclerAdapter = new PostsRecyclerAdapter(getContext(),posts);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(postsRecyclerAdapter);
 

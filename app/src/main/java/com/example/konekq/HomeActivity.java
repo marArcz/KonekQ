@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         tabsAdapter.addFragment(new NewsFeedFragment(),"Home");
         tabsAdapter.addFragment(new FriendsFragment(),"Friends");
         tabsAdapter.addFragment(new UserProfileFragment(),"Profile");
-        tabsAdapter.addFragment(new NewsFeedFragment(),"Home");
+        tabsAdapter.addFragment(new NotificationsFragment(),"Notifications");
         viewPager.setAdapter(tabsAdapter);
 
         //tabs

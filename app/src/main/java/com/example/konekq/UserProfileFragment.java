@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.konekq.Models.Posts;
+import com.example.konekq.Models.User;
 
 import java.util.ArrayList;
 
@@ -68,13 +69,17 @@ public class UserProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.posts_recycler_view);
         ArrayList<Posts> posts = new ArrayList<>();
-        posts.add(new Posts(0,0,"Hello Everyone!"));
-        posts.add(new Posts(0,0,"Good Morning!"));
-        posts.add(new Posts(0,0,"Good Afternoon!"));
-        posts.add(new Posts(0,0,"Good Evening!"));
-        posts.add(new Posts(0,0,"Good Night!"));
+        User user = new User();
+        user.setFirstname("Belle");
+        user.setFirstname("Soriano");
 
-        PostsRecyclerAdapter postsRecyclerAdapter = new PostsRecyclerAdapter(posts);
+        posts.add(new Posts(user,0,0,"Hello Everyone!"));
+        posts.add(new Posts(user,0,0,"Good Morning!"));
+        posts.add(new Posts(user,0,0,"Good Afternoon!"));
+        posts.add(new Posts(user,0,0,"Good Evening!"));
+        posts.add(new Posts(user,0,0,"Good Night!"));
+
+        PostsRecyclerAdapter postsRecyclerAdapter = new PostsRecyclerAdapter(getContext(),posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(postsRecyclerAdapter);
         return view;

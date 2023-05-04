@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray_100"
     android:elevation="3dp"
-    android:paddingBottom="5dp"
+    android:paddingBottom="10dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -22,16 +22,35 @@
             android:src="@drawable/belle_profile"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/white"/>
-        <TextView
-            android:id="@+id/textview_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Belle Soriano"
-            android:layout_marginStart="10dp"
-            android:layout_gravity="center_vertical"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           >
+           <TextView
+               android:id="@+id/textview_name"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Belle Soriano"
+               android:layout_marginStart="10dp"
+               android:layout_gravity="center_vertical"
+               android:textSize="16sp"
+               android:textColor="@color/black"
+               />
+           <TextView
+               android:id="@+id/textview_date_time"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="4h ago"
+               android:layout_marginTop="5dp"
+               android:layout_marginStart="10dp"
+               android:layout_gravity="center_vertical"
+               android:textSize="12sp"
+               android:textColor="@color/gray"
+               />
+
+       </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -66,42 +85,59 @@
             android:layout_width="20dp"
             android:layout_centerVertical="true"
             android:layout_height="20dp"
-            android:src="@drawable/baseline_thumb_up_alt_24_sign"
+            app:tint="@color/blue"
+
+            android:src="@drawable/outline_favorite_border_24"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="1.2k"
             android:layout_centerVertical="true"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:layout_toRightOf="@id/image_view_like_indicator"
             android:layout_marginStart="10dp"
             />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:padding="5dp"
+        android:layout_height="50dp"
         android:background="@color/white"
+        android:theme="@style/Theme.KonekQ.Material"
+        android:elevation="0dp"
+        android:padding="5dp"
         >
-        <ImageButton
-            android:id="@+id/image_button_like"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_like"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/outline_thumb_up_24"
-            android:background="@drawable/rounded_btn_bg"
-            android:backgroundTint="@color/gray_100"
-             />
-        <ImageButton
-            android:id="@+id/image_button_comment"
-            android:background="@drawable/rounded_btn_bg"
-            android:backgroundTint="@color/gray_100"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/outline_mode_comment_24"
+            android:textAlignment="center"
+            app:icon="@drawable/baseline_favorite_24"
+            app:iconGravity="textStart"
+            android:text="1.2k"
+            android:background="@android:color/transparent"
+            android:textColor="@color/blue"
             android:layout_marginHorizontal="5dp"
+            app:iconTint="@color/blue"
+            style="?android:attr/borderlessButtonStyle"
+             />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_comment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            app:icon="@drawable/outline_mode_comment_24"
+            app:iconGravity="textStart"
+            android:text="2.2k"
+            android:background="@android:color/transparent"
+            android:textColor="@color/gray"
+            app:iconTint="@color/gray"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginHorizontal="5dp"
+            android:shadowDx="0"
+            android:shadowDy="0"
             />
 
     </LinearLayout>
