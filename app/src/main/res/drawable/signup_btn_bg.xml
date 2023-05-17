@@ -23,10 +23,15 @@
         </shape>
     </item>
     <item>
-        <shape android:shape="rectangle">
-            <stroke android:color="@color/blue" android:width="2dp"/>
-            <corners android:radius="10dp"/>
-        </shape>
+      <layer-list>
+          <item>
+              <shape android:shape="rectangle">
+                  <stroke android:color="@color/blue" android:width="2dp"/>
+                  <corners android:radius="10dp"/>
+              </shape>
+          </item>
+
+      </layer-list>
     </item>
 
 </selector>

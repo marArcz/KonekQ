@@ -77,6 +77,7 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         if(holder instanceof PostCaptionOnlyViewHolder){
             PostCaptionOnlyViewHolder viewHolder = (PostCaptionOnlyViewHolder) holder;
             viewHolder.textViewCaption.setText(post.getContent());
+
         }else{
             PostWithPhotosViewHolder viewHolder = (PostWithPhotosViewHolder) holder;
 
@@ -91,6 +92,12 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                     intent.putExtra("image",post.getPhoto());
 
                     context.startActivity(intent);
+                }
+            });
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context,ViewPostActivity.class));
                 }
             });
         }

@@ -6,19 +6,53 @@ public class User {
 
     private int id;
     private String firstname;
-    private String middlename;
     private String lastname;
+    private String email_address;
     private String gender;
     private String profile_photo;
     private String cover_photo;
     private String password;
     private String birthday;
-    private int is_deleted;
+    private int is_deleted = DELETED_FALSE;
+
+    public User() {
+    }
+
+    public User(int id, String firstname, String lastname, String email_address, String gender, String profile_photo, String cover_photo, String password, String birthday, int is_deleted) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email_address = email_address;
+        this.gender = gender;
+        this.profile_photo = profile_photo;
+        this.cover_photo = cover_photo;
+        this.password = password;
+        this.birthday = birthday;
+        this.is_deleted = is_deleted;
+    }
+
+    public User(String firstname, String lastname, String email_address, String gender, String profile_photo, String cover_photo, String password, String birthday) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email_address = email_address;
+        this.gender = gender;
+        this.profile_photo = profile_photo;
+        this.cover_photo = cover_photo;
+        this.password = password;
+        this.birthday = birthday;
+    }
+
+    public String getEmail_address() {
+        return email_address;
+    }
+
+    public void setEmail_address(String email_address) {
+        this.email_address = email_address;
+    }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -29,14 +63,6 @@ public class User {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
-    }
-
-    public String getMiddlename() {
-        return middlename;
-    }
-
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
     }
 
     public String getLastname() {

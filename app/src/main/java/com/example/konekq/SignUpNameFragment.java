@@ -38,6 +38,8 @@ public class SignUpNameFragment extends Fragment {
                     }
                     snackbar.show();
                 }else{
+                    result.putString("firstname",firstnameBox.getText().toString());
+                    result.putString("lastname",lastNameBox.getText().toString());
                     getParentFragmentManager().setFragmentResult("signup_fragment",result);
                 }
 

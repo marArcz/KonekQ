@@ -85,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/icons_layout"
                             android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginHorizontal="20dp"
                             android:background="@android:color/transparent"
                             android:orientation="vertical"
@@ -106,7 +106,7 @@
                                 app:layout_constraintHorizontal_bias="0.551"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:helperText="*Required">
+                                >
                                 <!--this is the actual edit text which takes the input for the email-->
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/edit_textEmail"
@@ -133,7 +133,7 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:endIconMode="password_toggle"
                                 android:touchscreenBlocksFocus="true"
-                                app:helperText="*Required">
+                                >
 
                                 <!--this is the actual edit text which takes the input for the email-->
 
@@ -141,8 +141,9 @@
                                     android:id="@+id/edit_textPassword"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:drawableStart="@drawable/ic_baseline_person_outline_24"
+                                    android:drawableStart="@drawable/baseline_lock_24"
                                     android:inputType="textPassword"
+                                    android:drawableTint="@color/black"
                                     android:drawablePadding="10dp"/>
 
                             </com.google.android.material.textfield.TextInputLayout>

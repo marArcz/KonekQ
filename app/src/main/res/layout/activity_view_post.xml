@@ -1,25 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewPostActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button3"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="wrap_content"
+    tools:context=".ViewPostActivity"
+    android:orientation="vertical"
+    >
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/gray"
-            app:icon="@drawable/baseline_arrow_back_24"
-            app:iconTint="@color/dark"
+            android:layout_margin="5dp"
+            >
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    app:icon="@drawable/baseline_arrow_back_24"
+                    app:iconTint="@color/dark"
+                    />
+
+                <TextView
+                    android:id="@+id/textview_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:text="Belle Soriano"
+                    android:textAlignment="center" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:id="@+id/textview_caption"
+                />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/belle_cover_photo"
+            android:scaleType="centerCrop"
+                />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_favorite_24"
+            android:drawableTint="@color/blue"
+            android:text="1.2k"
+            android:drawablePadding="5dp"
+            android:paddingVertical="7dp"
+            android:layout_marginVertical="1dp"
+            android:paddingHorizontal="5dp"
+            android:background="@color/white"
+            android:elevation="1dp"
             />
-    </LinearLayout>
-</RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:background="@color/white"
+                >
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:backgroundTint="@color/white"
+                    app:cornerRadius="1dp"
+                    app:icon="@drawable/outline_favorite_border_24"
+                    app:iconTint="@color/blue"
+                    app:iconGravity="textStart"
+                        />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:backgroundTint="@color/white"
+                    app:cornerRadius="1dp"
+                    app:icon="@drawable/outline_mode_comment_24"
+                    app:iconTint="@color/gray"
+                    app:iconGravity="textStart"
+                        />
+
+        </LinearLayout>
+</LinearLayout>

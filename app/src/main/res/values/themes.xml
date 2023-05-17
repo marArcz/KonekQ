@@ -33,4 +33,7 @@
 
     </style>
 
+    <style name="Theme.KonekQ.SignUpBtn" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </style>
+
 </resources>

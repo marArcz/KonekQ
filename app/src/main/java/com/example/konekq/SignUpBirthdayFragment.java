@@ -24,26 +24,33 @@ public class SignUpBirthdayFragment extends Fragment {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         View root = view;
 
         DatePicker datePicker = root.findViewById(R.id.datePicker);
         TextView textViewAge = root.findViewById(R.id.text_view_age);
-        datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // Getting year from date
-                int currentYr = Calendar.getInstance().get(Calendar.YEAR);
-                textViewAge.setText((currentYr - year) + " years old");
-            }
-        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                @Override
+                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    // Getting year from date
+                    int currentYr = Calendar.getInstance().get(Calendar.YEAR);
+                    textViewAge.setText((currentYr - year) + " years old");
+
+                    birthday = String.format("%s-%s-%s", year,monthOfYear,dayOfMonth);
+                }
+            });
+        }else{
+
+        }
+
 
         Button btnNext = root.findViewById(R.id.btn_next);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                birthday = String.format("%s-%s-%s", datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth());
                 Bundle result = new Bundle();
                 result.putString("fragment","birthday_fragment");
                 result.putString("birthday",birthday);

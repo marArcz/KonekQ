@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="custom_dialog_style" parent="Theme.KonekQ.Material">
+        <item name="android:windowBackground">@android:color/darker_gray</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_gravity">top</item>
+
+    </style>
+</resources>

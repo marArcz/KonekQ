@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp"
+    android:background="@drawable/rounded_card_bg"
+    android:layout_margin="5dp"
+    android:elevation="5dp">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:src="@drawable/server_down"
+        android:layout_marginHorizontal="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_title"
+        android:text="Title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_message"
+        android:text="A message from us!"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_below="@id/textview_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_error_code"
+        android:text="Error code 4005"
+        android:textAlignment="center"
+        android:textColor="@color/gray"
+        android:textSize="14sp"
+        android:layout_below="@id/textview_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_okay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Okay"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/textview_error_code"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        app:cornerRadius="2dp"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_toLeftOf="@id/btn_okay"
+        android:layout_below="@id/textview_error_code"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        app:cornerRadius="2dp"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        />
+</RelativeLayout>

@@ -92,6 +92,7 @@ public class NewsFeedFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(postsRecyclerAdapter);
 
+
         return root;
     }
 }

@@ -12,10 +12,10 @@ import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_finishing_up#newInstance} factory method to
+ * Use the {@link SignupPasswordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_finishing_up extends Fragment {
+public class SignupPasswordFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class fragment_finishing_up extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_finishing_up() {
+    public SignupPasswordFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class fragment_finishing_up extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_finishing_up.
+     * @return A new instance of fragment SignupPasswordFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_finishing_up newInstance(String param1, String param2) {
-        fragment_finishing_up fragment = new fragment_finishing_up();
+    public static SignupPasswordFragment newInstance(String param1, String param2) {
+        SignupPasswordFragment fragment = new SignupPasswordFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,15 +60,24 @@ public class fragment_finishing_up extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_finishing_up, container, false);
+        // Inflate the layout for this fragment
+        View root = inflater.inflate(R.layout.fragment_signup_password, container, false);
         Button btnNext = root.findViewById(R.id.btn_next);
+        EditText editTextPassword = root.findViewById(R.id.edit_text_password);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle result = new Bundle();
-                result.putString("fragment","finishing_up_fragment");
-                getParentFragmentManager().setFragmentResult("signup_fragment",result);
+                String password = editTextPassword.getText().toString();
+
+                if(password.isBlank() || password.length() < 6){
+                    editTextPassword.setError("Password should have at least 6 characters!");
+                }else{
+                    Bundle result = new Bundle();
+                    result.putString("fragment","password_fragment");
+                    result.putString("password",password);
+                    getParentFragmentManager().setFragmentResult("signup_fragment",result);
+                }
             }
         });
 
