@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MenuActivity"
+    android:padding="20dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/baseline_arrow_back_24"
+        android:id="@+id/btn_back"
+        android:layout_alignParentTop="true"
+        style="@style/Widget.Material3.Button.IconButton"
+        />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/btn_back"
+        app:iconTint="@color/black"
+        android:src="@drawable/baseline_search_24"
+        android:background="@drawable/rounded_btn_bg"
+        android:backgroundTint="@color/gray_600"
+        android:id="@+id/btn_search"
+        android:layout_marginTop="20dp"
+        />
+
+    <!-- buttons   -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="52dp"
+        android:layout_below="@id/btn_search"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:text="Log Out"
+        app:cornerRadius="5dp"
+        android:paddingVertical="5dp"
+        />
+
+</RelativeLayout>

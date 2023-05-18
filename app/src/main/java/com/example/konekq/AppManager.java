@@ -21,6 +21,16 @@ public class AppManager {
 
         return editor.commit();
     }
+
+    public static boolean removeUser(Context context){
+        SharedPreferences sharedpreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        editor.remove("user");
+
+        return editor.commit();
+    }
     public static User getUser(Context context){
         User user;
         SharedPreferences sharedpreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -31,6 +41,8 @@ public class AppManager {
 
         return user;
     }
+
+
 
     public static boolean saveToken(String token, Context context){
         SharedPreferences sharedpreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);

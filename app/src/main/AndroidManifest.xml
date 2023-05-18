@@ -15,6 +15,9 @@
         android:theme="@style/Theme.KonekQ.AppCompat"
         tools:targetApi="31">
         <activity
+            android:name=".MenuActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewPostActivity"
             android:exported="false" />
         <activity
