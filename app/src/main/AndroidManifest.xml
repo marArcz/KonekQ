@@ -21,7 +21,7 @@
             android:name=".ViewPhotoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity_verify_email"
+            android:name=".ActivityVerifyEmail"
             android:exported="false" />
         <activity
             android:name=".Login2"
@@ -49,7 +49,7 @@
             android:exported="false"
             android:theme="@style/Theme.KonekQ.AppCompat" />
         <activity
-            android:name=".activity_splash"
+            android:name=".ActivitySplashScreen"
             android:exported="false" />
         <activity
             android:name=".activity_newsfeed"

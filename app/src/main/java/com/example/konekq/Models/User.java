@@ -3,6 +3,8 @@ package com.example.konekq.Models;
 public class User {
     public static final int DELETED_TRUE = 1;
     public static final int DELETED_FALSE = 0;
+    public static final int VERIFIED_TRUE = 1;
+    public static final int VERIFIED_FALSE = 0;
 
     private int id;
     private String firstname;
@@ -14,11 +16,12 @@ public class User {
     private String password;
     private String birthday;
     private int is_deleted = DELETED_FALSE;
+    private int is_verified;
 
     public User() {
     }
 
-    public User(int id, String firstname, String lastname, String email_address, String gender, String profile_photo, String cover_photo, String password, String birthday, int is_deleted) {
+    public User(int id, String firstname, String lastname, String email_address, String gender, String profile_photo, String cover_photo, String password, String birthday, int is_deleted, int is_verified) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -29,6 +32,7 @@ public class User {
         this.password = password;
         this.birthday = birthday;
         this.is_deleted = is_deleted;
+        this.is_verified = is_verified;
     }
 
     public User(String firstname, String lastname, String email_address, String gender, String profile_photo, String cover_photo, String password, String birthday) {
@@ -119,5 +123,13 @@ public class User {
 
     public void setIs_deleted(int is_deleted) {
         this.is_deleted = is_deleted;
+    }
+
+    public int getIs_verified() {
+        return is_verified;
+    }
+
+    public void setIs_verified(int is_verified) {
+        this.is_verified = is_verified;
     }
 }

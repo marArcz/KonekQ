@@ -21,7 +21,7 @@ public class CustomAlertDialog extends Dialog {
 
     public static final int DEFAULT_DRAWABLE = R.drawable.notify;
     public static final int SUCCESS_DRAWABLE = R.drawable.undraw_winners_re_wr1l;
-    public static final int ERROR_DRAWABLE = R.drawable.server_down;
+    public static final int ERROR_DRAWABLE = R.drawable.bug_fixing;
     public static final int WARNING_DRAWABLE = R.drawable.notify;
     ImageView imageView;
     Button btnOkay, btnCancel;

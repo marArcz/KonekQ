@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_verify_email">
+    tools:context=".ActivityVerifyEmail">
 
   <TextView
       android:id="@+id/textView9"
@@ -15,21 +15,22 @@
       android:textColor="@color/black"
       android:textSize="20sp"
       android:textStyle="bold"
+      android:layout_marginTop="10dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
   <TextView
-      android:id="@+id/textView10"
+      android:id="@+id/textViewMessage"
       android:layout_width="314dp"
       android:layout_height="42dp"
       android:layout_marginStart="20dp"
-      android:layout_marginTop="44dp"
+      android:layout_marginTop="16dp"
       android:layout_marginEnd="20dp"
-      android:text="Let us know this email belongs to you. Enter the code in the email sent to"
+      android:text="Let us know this email belongs to you. Enter the code in the email sent to %s"
       android:textColor="@color/black"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.487"
+      app:layout_constraintHorizontal_bias="0.491"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -40,7 +41,7 @@
       android:layout_gravity="center"
       android:background="@android:color/transparent"
       android:hint="Enter Code"
-      app:layout_constraintBottom_toBottomOf="@+id/textView10"
+      app:layout_constraintBottom_toBottomOf="@+id/textViewMessage"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
@@ -49,46 +50,47 @@
   </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/edit_verify_email"
-      android:layout_width="266dp"
+      android:id="@+id/editText_verify_email"
+      android:layout_width="match_parent"
       android:layout_height="58dp"
-      android:layout_marginTop="68dp"
+      android:layout_marginHorizontal="50dp"
+      android:layout_marginTop="32dp"
       android:drawablePadding="10dp"
       android:hint="Verification Code"
       android:inputType="number"
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.496"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textView10"
+      app:layout_constraintTop_toBottomOf="@+id/textViewMessage"
       tools:ignore="MissingConstraints" />
 
-  <TextView
-      android:id="@+id/textView23"
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn_send_again"
+      style="@style/Widget.Material3.Button.IconButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="24dp"
+      android:layout_marginTop="32dp"
       android:text="Send email again"
       android:textColor="@color/black"
+      app:cornerRadius="3dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.498"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/edit_verify_email" />
+      app:layout_constraintTop_toBottomOf="@+id/editText_verify_email" />
 
   <Button
-      android:id="@+id/btn_login"
-      android:layout_width="247dp"
+      android:id="@+id/btn_verify"
+      android:layout_width="match_parent"
       android:layout_height="48dp"
-      android:layout_marginHorizontal="60dp"
+      android:layout_marginHorizontal="50dp"
+      android:layout_marginTop="52dp"
       android:background="@drawable/btn_bg"
-      android:text="Continue"
+      android:text="Verify"
       android:textColor="@color/white"
       android:textSize="14sp"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textView23"
-      app:layout_constraintVertical_bias="0.348" />
+      app:layout_constraintTop_toBottomOf="@+id/btn_send_again" />
 
   <ImageView
       android:id="@+id/imageView6"

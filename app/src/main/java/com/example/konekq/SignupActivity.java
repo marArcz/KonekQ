@@ -1,27 +1,21 @@
 package com.example.konekq;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.FileUtils;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.konekq.BackendAPI.RetrofitClient;
 import com.example.konekq.BackendAPI.Users.UserAPIResponse;
 import com.example.konekq.Models.User;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -137,6 +131,8 @@ public class SignupActivity extends AppCompatActivity {
                     Log.d(ErrorCodes.SIGNUP,"Server response is empty!");
                 }else{
                     if(response.body().isSuccess()){
+                        AppManager.saveUser(response.body().getUser(),getApplicationContext());
+                        AppManager.saveToken(response.body().getToken(),getApplicationContext());
                         new CustomAlertDialog(SignupActivity.this)
                                 .setTitle("Success")
                                 .setMessage("We successfully created your account!")
@@ -144,7 +140,7 @@ public class SignupActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(CustomAlertDialog dialog) {
                                         dialog.dismiss();
-                                        startActivity(new Intent(SignupActivity.this,activity_verify_email.class));
+                                        startActivity(new Intent(SignupActivity.this, ActivityVerifyEmail.class));
                                     }
                                 })
                                 .showSuccess();
@@ -179,7 +175,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void finishSignUp(){
-        setActiveFragment(fragment_finishing_up.class);
+        setActiveFragment(FinishingUpFragment.class);
     }
 
     private void setActiveFragment(Class<? extends Fragment> fragmentClass){
