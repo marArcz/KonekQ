@@ -21,6 +21,7 @@
                 android:id="@+id/cover_photo"
                 android:layout_width="match_parent"
                 android:layout_height="228dp"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/belle_cover_photo" />
 
             <LinearLayout

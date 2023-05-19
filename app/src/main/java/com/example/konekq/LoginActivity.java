@@ -64,8 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                                 }else{
                                     new CustomAlertDialog(LoginActivity.this)
+                                            .setTitle("Failed!")
                                             .setMessage(response.body().getMessage())
-                                            .showError();
+                                            .show();
                                 }
                             }
                         }

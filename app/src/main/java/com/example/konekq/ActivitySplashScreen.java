@@ -14,7 +14,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Intent intent;
 
-        if(AppManager.getUser(this) != null){
+        if(AppManager.getUser(getApplicationContext()) != null){
             //if user is logged in redirect to homepage
             intent = new Intent(ActivitySplashScreen.this, HomeActivity.class);
         }else{
@@ -22,12 +22,13 @@ public class ActivitySplashScreen extends AppCompatActivity {
             intent = new Intent(this, LoginActivity.class);
         }
 
-        //redirect user after a 0.6 seconds
+        //redirect user after a second
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(intent);
+                finish();
             }
-        },600);
+        },1000);
     }
 }

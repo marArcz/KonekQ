@@ -36,10 +36,14 @@ public class AppManager {
         SharedPreferences sharedpreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
         String jsonUser = sharedpreferences.getString("user","");
-        Gson gson = new Gson();
-        user = (User) gson.fromJson(jsonUser,User.class);
+       if(!jsonUser.isBlank()){
+           Gson gson = new Gson();
+           user = (User) gson.fromJson(jsonUser,User.class);
 
-        return user;
+           return user;
+       }else{
+           return null;
+       }
     }
 
 
