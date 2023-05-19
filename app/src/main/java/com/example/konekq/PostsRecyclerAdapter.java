@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.example.konekq.Models.PostPhoto;
 import com.example.konekq.Models.Posts;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -76,11 +78,14 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         if(holder instanceof PostCaptionOnlyViewHolder){
             PostCaptionOnlyViewHolder viewHolder = (PostCaptionOnlyViewHolder) holder;
+            Glide.with(context).load(post.getUser().getProfile_photo()).into(viewHolder.imageViewProfile);
             viewHolder.textViewCaption.setText(post.getContent());
+            viewHolder.textViewName.setText(String.format("%s %s", post.getUser().getFirstname(),post.getUser().getLastname()));
 
         }else{
             PostWithPhotosViewHolder viewHolder = (PostWithPhotosViewHolder) holder;
-
+            Glide.with(context).load(post.getUser().getProfile_photo()).into(viewHolder.imageViewProfile);
+            viewHolder.textViewName.setText(String.format("%s %s", post.getUser().getFirstname(),post.getUser().getLastname()));
             viewHolder.textViewCaption.setText(post.getContent());
 
             Glide.with(context).load(post.getPhoto()).into(viewHolder.imageView);
@@ -110,22 +115,30 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     //Item view holder
     public class PostCaptionOnlyViewHolder extends RecyclerView.ViewHolder{
-        TextView textViewCaption;
+        TextView textViewCaption, textViewDateTime;
+        TextView textViewName;
+        ImageView imageViewProfile;
         public PostCaptionOnlyViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            textViewName = itemView.findViewById(R.id.textview_name);
             textViewCaption = itemView.findViewById(R.id.textView_caption);
+            textViewDateTime = itemView.findViewById(R.id.textview_date_time);
+            imageViewProfile = itemView.findViewById(R.id.profile_photo);
         }
     }
 
-    public class PostWithPhotosViewHolder extends  RecyclerView.ViewHolder{
-        TextView textViewCaption;
+    public class PostWithPhotosViewHolder extends RecyclerView.ViewHolder{
+        TextView textViewCaption,textViewName,textViewDateTime;
         ImageView imageView;
+        ImageView imageViewProfile;
+
         public PostWithPhotosViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            textViewName = itemView.findViewById(R.id.textview_name);
             textViewCaption = itemView.findViewById(R.id.textView_caption);
             imageView = itemView.findViewById(R.id.imageView);
+            textViewDateTime = itemView.findViewById(R.id.textview_date_time);
+            imageViewProfile = itemView.findViewById(R.id.profile_photo);
         }
     }
 

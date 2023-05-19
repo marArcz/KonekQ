@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.konekq.Models.Posts;
 import com.example.konekq.Models.User;
 
@@ -21,6 +24,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class UserProfileFragment extends Fragment {
+    User user;
+    ImageView imageViewProfile, imageViewCover;
+    TextView textViewName;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,11 +73,17 @@ public class UserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        textViewName = view.findViewById(R.id.user_name);
+        imageViewProfile = view.findViewById(R.id.profile_photo);
+        imageViewCover = view.findViewById(R.id.cover_photo);
+
         RecyclerView recyclerView = view.findViewById(R.id.posts_recycler_view);
         ArrayList<Posts> posts = new ArrayList<>();
-        User user = new User();
-        user.setFirstname("Belle");
-        user.setFirstname("Soriano");
+        user = AppManager.getUser(getContext());
+
+        textViewName.setText(String.format("%s %s", user.getFirstname(),user.getLastname()));
+        Glide.with(getContext()).load(user.getProfile_photo()).into(imageViewProfile);
+        Glide.with(getContext()).load(user.getCover_photo()).into(imageViewCover);
 
         posts.add(new Posts(user,0,0,"Hello Everyone!"));
         posts.add(new Posts(user,0,0,"Good Morning!"));

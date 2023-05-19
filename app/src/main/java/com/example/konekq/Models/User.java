@@ -1,5 +1,7 @@
 package com.example.konekq.Models;
 
+import com.example.konekq.BackendAPI.RetrofitClient;
+
 public class User {
     public static final int DELETED_TRUE = 1;
     public static final int DELETED_FALSE = 0;
@@ -86,7 +88,7 @@ public class User {
     }
 
     public String getProfile_photo() {
-        return profile_photo;
+        return RetrofitClient.baseUrl + profile_photo;
     }
 
     public void setProfile_photo(String profile_photo) {
@@ -94,7 +96,7 @@ public class User {
     }
 
     public String getCover_photo() {
-        return cover_photo;
+        return RetrofitClient.baseUrl + cover_photo;
     }
 
     public void setCover_photo(String cover_photo) {

@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    static String baseUrl = "https://unchartered-threes.000webhostapp.com/";
+    public static String baseUrl = "https://unchartered-threes.000webhostapp.com/";
 //    static String baseUrl = "http://192.168.254.193/konekq_backend/";
     public static Retrofit getRetrofit(){
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

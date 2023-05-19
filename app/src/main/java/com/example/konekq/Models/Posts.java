@@ -14,6 +14,7 @@ public class Posts {
 
     private LocalDateTime date_posted;
     private int type = TYPE_CAPTION_ONLY;
+    private boolean liked;
 
     private User user = null;
 
@@ -99,5 +100,13 @@ public class Posts {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 }

@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.konekq.Models.PostPhoto;
 import com.example.konekq.Models.Posts;
 import com.example.konekq.Models.User;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
  */
 public class NewsFeedFragment extends Fragment {
 
+    ImageView imageViewProfile;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -68,14 +71,14 @@ public class NewsFeedFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.newsfeed_fragment_layout, container, false);
+        imageViewProfile = root.findViewById(R.id.profile_photo);
 
         RecyclerView recyclerView = root.findViewById(R.id.recycle_view);
         ArrayList<Posts> posts = new ArrayList<>();
 
-        User user = new User();
-        user.setFirstname("Belle");
-        user.setFirstname("Soriano");
+        User user = AppManager.getUser(getContext());
 
+        Glide.with(getContext()).load(user.getProfile_photo()).into(imageViewProfile);
         PostPhoto[] photos = {
                 new PostPhoto(0,0,"https://th.bing.com/th/id/OIP.V1iHyCRxOq-FLxKhMURGQQHaKk?pid=ImgDet&rs=1"),
                 new PostPhoto(0,0,"https://images.alphacoders.com/112/thumb-1920-112121.jpg"),
