@@ -61,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                                         .showError(error_code);
                             }else{
                                 if(response.body().isSuccess()){
+                                    AppManager.saveUser(response.body().getUser(),getApplicationContext());
+                                    AppManager.saveToken(response.body().getToken(),getApplicationContext());
                                     startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                                 }else{
                                     new CustomAlertDialog(LoginActivity.this)
