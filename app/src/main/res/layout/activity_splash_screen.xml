@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_splash_screen_scene3"
-    tools:context=".ActivitySplashScreen">
+    tools:context=".activity_splash_screen"
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,14 +56,6 @@
         app:srcCompat="@drawable/plane"
         tools:layout_editor_absoluteX="247dp"
         tools:layout_editor_absoluteY="560dp" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/plane"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="616dp" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

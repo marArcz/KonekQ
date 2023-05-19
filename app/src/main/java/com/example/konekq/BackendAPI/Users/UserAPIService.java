@@ -12,6 +12,9 @@ import retrofit2.http.POST;
 
 public interface UserAPIService {
 
+    @POST("users/account")
+    Call<UserAPIResponse> getAccount();
+
     @POST("users/signup")
     Call<UserAPIResponse> SignUp(@Body User user);
 
