@@ -25,7 +25,7 @@ public class SignupGenderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         View root = view;
         ListView listView = root.findViewById(R.id.gender_listview);
-        String genders[] = {"Female","Male","Prefer not to say"};
+        String[] genders = {"Female","Male","Prefer not to say"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_singlechoice,genders);
         listView.setAdapter(arrayAdapter);
         Button btnNext =  root.findViewById(R.id.btn_next);

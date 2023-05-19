@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class HomeTabsAdapter extends FragmentStateAdapter {
 
-    private ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
-    private ArrayList<String> fragmentTitles = new ArrayList<>();
+    private final ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+    private final ArrayList<String> fragmentTitles = new ArrayList<>();
 
     public HomeTabsAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

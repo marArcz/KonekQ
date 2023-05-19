@@ -21,6 +21,12 @@
             android:exported="false"
             android:theme="@style/Theme.KonekQ.Material"/>
         <activity
+            android:name=".activity_splash_screen"
+            android:exported="false" />
+        <activity
+            android:name=".splash_screen"
+            android:exported="false" />
+        <activity
             android:name=".ViewPostActivity"
             android:exported="false" />
         <activity

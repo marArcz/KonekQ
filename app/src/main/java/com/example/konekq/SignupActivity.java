@@ -22,7 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
-    private int id = 0;
+    private final int id = 0;
     private int index = 0;
     private Class<?extends  Fragment>[] fragments;
     private Button btnNext;
@@ -159,7 +159,7 @@ public class SignupActivity extends AppCompatActivity {
                 new CustomAlertDialog(SignupActivity.this)
                         .setMessage(t.getMessage())
                         .showError();
-                System.out.println("Error 1001: " + call.toString());
+                System.out.println("Error 1001: " + call);
                 Log.d(ErrorCodes.SIGNUP,t.getMessage());
             }
         });

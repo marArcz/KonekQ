@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_LOADING = 100;
-    private Context context;
+    private final Context context;
     ArrayList<Posts> posts;
 
     public PostsRecyclerAdapter(Context context,ArrayList<Posts> posts) {

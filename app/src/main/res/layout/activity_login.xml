@@ -50,6 +50,7 @@
                         android:id="@+id/image_icon_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="-10dp"
                         >
 
                         <ImageView
@@ -85,7 +86,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/icons_layout"
                             android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
                             android:layout_marginHorizontal="20dp"
                             android:background="@android:color/transparent"
                             android:orientation="vertical"
@@ -148,6 +148,8 @@
 
                             </com.google.android.material.textfield.TextInputLayout>
                         </LinearLayout>
+
+
 
                         <Button
                             android:id="@+id/btn_verify"
