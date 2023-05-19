@@ -16,7 +16,8 @@
         tools:targetApi="31">
         <activity
             android:name=".MenuActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.KonekQ.Material"/>
         <activity
             android:name=".ViewPostActivity"
             android:exported="false" />
@@ -53,7 +54,12 @@
             android:theme="@style/Theme.KonekQ.AppCompat" />
         <activity
             android:name=".ActivitySplashScreen"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity_newsfeed"
             android:exported="false" />
@@ -66,25 +72,12 @@
             android:theme="@style/Theme.KonekQ.AppCompat" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:exported="false">
         </activity>
 
         <meta-data

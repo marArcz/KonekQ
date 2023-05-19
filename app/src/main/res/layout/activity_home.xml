@@ -25,6 +25,7 @@
             android:src="@drawable/konekq_text_2"
             android:layout_centerVertical="true"/>
         <ImageButton
+            android:id="@+id/btn_menu"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"

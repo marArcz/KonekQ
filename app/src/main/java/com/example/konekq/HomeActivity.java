@@ -7,10 +7,13 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,12 +25,21 @@ import org.w3c.dom.Text;
 public class HomeActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager;
+    ImageButton btnMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         tabLayout = findViewById(R.id.home_tab_layout);
         viewPager = findViewById(R.id.view_pager2);
+        btnMenu = findViewById(R.id.btn_menu);
+
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,MenuActivity.class));
+            }
+        });
         initTabs();
     }
 
