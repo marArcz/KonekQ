@@ -32,6 +32,15 @@ public class AppManager {
 
         return editor.commit();
     }
+    public static boolean removeToken(Context context){
+        SharedPreferences sharedpreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        editor.remove("token");
+
+        return editor.commit();
+    }
     public static User getUser(Context context){
         User user;
         SharedPreferences sharedpreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);

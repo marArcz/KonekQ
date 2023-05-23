@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.konekq.BackendAPI.RetrofitClient;
@@ -22,7 +23,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         Intent intent;
         String token = AppManager.getToken(getApplicationContext());
-        if(token != null){
+        if(!token.isEmpty()){
             //if user is logged in redirect to homepage
             intent = new Intent(ActivitySplashScreen.this, HomeActivity.class);
             Call<UserAPIResponse> getAccount = RetrofitClient.getUserService(token).getAccount();
@@ -40,13 +41,14 @@ public class ActivitySplashScreen extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<UserAPIResponse> call, Throwable t) {
-                    Toast.makeText(ActivitySplashScreen.this, "Something went wrong pelase try again later!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivitySplashScreen.this, "Something went wrong please try again later!", Toast.LENGTH_SHORT).show();
+                    Log.d("SPLASHSCREEN",t.getMessage());
                 }
             });
         }else{
             //redirect to login page
             intent = new Intent(this, LoginActivity.class);
-            proceed(intent,1500);
+            proceed(intent,2000);
         }
 
     }

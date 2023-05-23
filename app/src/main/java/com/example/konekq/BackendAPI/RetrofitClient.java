@@ -2,6 +2,8 @@ package com.example.konekq.BackendAPI;
 
 import android.util.Log;
 
+import com.example.konekq.BackendAPI.Posts.PostsAPIResponse;
+import com.example.konekq.BackendAPI.Posts.PostsAPIService;
 import com.example.konekq.BackendAPI.Users.UserAPIService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -58,5 +60,12 @@ public class RetrofitClient {
     }
     public static UserAPIService getUserService(String token){
         return getRetrofit(token).create(UserAPIService.class);
+    }
+
+    public static PostsAPIService getPostService(){
+        return getRetrofit().create(PostsAPIService.class);
+    }
+    public static PostsAPIService getPostService(String token){
+        return getRetrofit(token).create(PostsAPIService.class);
     }
 }

@@ -28,7 +28,10 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AppManager.removeUser(MenuActivity.this);
-                startActivity(new Intent(MenuActivity.this, LoginActivity.class));
+                AppManager.removeToken(MenuActivity.this);
+                Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finish();
             }
         });

@@ -9,4 +9,7 @@ public class ErrorCodes {
     public static final String CHECK_EMAIL_ADDRESS = "1006";
     public static final String SENDING_VERIFICATION_CODE = "1007";
     public static final String VERIFYING_EMAIL_ADDRESS = "1008";
+    public static final String GETTING_POST_BACKGROUNDS = "1009";
+    public static final String ADDING_CAPTION_ONLY_POST = "1010";
+    public static final String ADDING_CAPTION_WITH_PHOTO = "1011";
 }
