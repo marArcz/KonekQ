@@ -43,9 +43,10 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="3dp"
                 android:background="@drawable/rounded_btn_bg"
-                android:backgroundTint="@color/gray_100"
+                android:backgroundTint="#F1F1F1"
                 android:text="What's on your mind?"
                 android:textColor="@color/black"
+                android:elevation="0dp"
                 android:textSize="12sp"
                 android:textStyle="normal" />
         </LinearLayout>

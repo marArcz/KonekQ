@@ -37,4 +37,15 @@ public interface PostsAPIService {
     @GET("posts/backgrounds")
     Call<PostBackgroundAPIResponse> getBackgrounds();
 
+    @FormUrlEncoded
+    @POST("posts/like")
+    Call<APIResponse> likePost(@Field("post_id") int postId);
+
+    @FormUrlEncoded
+    @POST("posts/unlike")
+    Call<APIResponse> unlikePost(@Field("post_id") int postId);
+
+    @FormUrlEncoded
+    @POST("posts/get")
+    Call<PostDetailsAPIResponse> get(@Field("post_id") int postId);
 }

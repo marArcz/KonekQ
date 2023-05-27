@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/clickable_bg"
+    android:padding="5dp"
+    android:clickable="true"
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/belle_profile"
+        android:id="@+id/imageView_profile"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <LinearLayout
+        android:id="@+id/comment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toRightOf="@id/imageView_profile"
+        android:background="@drawable/comment_content_bg"
+        android:backgroundTint="#EDEDED"
+        android:orientation="vertical"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="15dp"
+        >
+
+        <TextView
+            android:id="@+id/textView_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Belle Soriano"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+             />
+
+        <TextView
+            android:id="@+id/textView_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wow"
+            android:layout_marginTop="7dp"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_date_time"
+        android:layout_below="@id/comment_container"
+        android:layout_toRightOf="@id/imageView_profile"
+        android:text="1h"
+        android:textSize="12sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        />
+</RelativeLayout>

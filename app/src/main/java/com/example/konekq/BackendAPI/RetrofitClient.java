@@ -2,6 +2,7 @@ package com.example.konekq.BackendAPI;
 
 import android.util.Log;
 
+import com.example.konekq.BackendAPI.Comments.CommentsAPIService;
 import com.example.konekq.BackendAPI.Posts.PostsAPIResponse;
 import com.example.konekq.BackendAPI.Posts.PostsAPIService;
 import com.example.konekq.BackendAPI.Users.UserAPIService;
@@ -67,5 +68,9 @@ public class RetrofitClient {
     }
     public static PostsAPIService getPostService(String token){
         return getRetrofit(token).create(PostsAPIService.class);
+    }
+
+    public static CommentsAPIService getCommentService(String token){
+        return getRetrofit(token).create(CommentsAPIService.class);
     }
 }

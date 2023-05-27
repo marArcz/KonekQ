@@ -195,6 +195,7 @@ public class AddPostActivity extends AppCompatActivity {
                             .setOkayBtnClickListener(new CustomAlertDialog.OkayBtnClickListener() {
                                 @Override
                                 public void onClick(CustomAlertDialog dialog) {
+                                    dialog.dismiss();
                                     requestPermissionLauncher.launch(
                                             Manifest.permission.READ_EXTERNAL_STORAGE);
                                 }

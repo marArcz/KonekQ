@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewPostActivity"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
         <RelativeLayout
+            android:id="@+id/topbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            >
+            android:elevation="2dp"
+            android:background="@color/white"
+            android:padding="5dp">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_back"
                     style="@style/Widget.Material3.Button.IconButton"
@@ -19,74 +23,202 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     app:icon="@drawable/baseline_arrow_back_24"
-                    app:iconTint="@color/dark"
-                    />
+                    app:iconTint="@color/dark" />
 
                 <TextView
-                    android:id="@+id/textview_name"
+                    android:id="@+id/textView_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_weight="1"
-                    android:text="Belle Soriano"
+                    android:text="..."
                     android:textAlignment="center" />
         </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:id="@+id/textview_caption"
-                />
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/belle_cover_photo"
-            android:scaleType="centerCrop"
-                />
 
-        <TextView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/baseline_favorite_24"
-            android:drawableTint="@color/blue"
-            android:text="1.2k"
-            android:drawablePadding="5dp"
-            android:paddingVertical="7dp"
-            android:layout_marginVertical="1dp"
-            android:paddingHorizontal="5dp"
-            android:background="@color/white"
-            android:elevation="1dp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:background="@color/white"
-                >
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/topbar"
+            android:layout_above="@id/comment_box_container">
+                <ScrollView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="@style/Widget.Material3.Button.IconButton.Filled"
-                    android:backgroundTint="@color/white"
-                    app:cornerRadius="1dp"
-                    app:icon="@drawable/outline_favorite_border_24"
+                    >
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                                <RelativeLayout
+                                    android:layout_marginTop="10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/secondary_bar"
+                                    android:layout_marginHorizontal="10dp"
+                                    >
+
+                                        <de.hdodenhof.circleimageview.CircleImageView
+                                            android:id="@+id/imageView_profile"
+                                            android:layout_width="45dp"
+                                            android:layout_height="45dp"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/gray" />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toRightOf="@id/imageView_profile"
+                                            android:id="@+id/textView_name_secondary"
+                                            android:text=""
+                                            android:layout_marginStart="10dp"
+                                            android:layout_centerVertical="true"
+                                            android:textColor="@color/black"
+                                            />
+
+                                </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/textView_caption"
+                                    android:paddingHorizontal="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="30dp"
+                                    android:text="..."
+                                    android:layout_below="@id/secondary_bar"
+                                    />
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="250dp"
+                                    android:id="@+id/imageView_post_photo"
+                                    android:src="@drawable/gray"
+                                    android:scaleType="centerCrop"
+                                    android:layout_below="@id/textView_caption"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/textView_likes"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/imageView_post_photo"
+                                    android:layout_marginTop="2dp"
+                                    android:background="@color/white"
+                                    android:drawableLeft="@drawable/baseline_favorite_24_small"
+                                    android:drawablePadding="5dp"
+                                    android:elevation="0dp"
+                                    android:paddingHorizontal="8dp"
+                                    android:paddingVertical="8dp"
+                                    android:text="1.2k"
+                                    android:textSize="12sp" />
+
+                                <LinearLayout
+                                    android:id="@+id/comment_buttons"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="55dp"
+                                    android:layout_below="@id/textView_likes"
+                                    android:layout_marginVertical="2dp"
+                                    android:background="@color/white"
+                                    android:elevation="1dp"
+                                    android:paddingHorizontal="5dp"
+                                    android:theme="@style/Theme.KonekQ.Material">
+
+                                        <com.google.android.material.button.MaterialButton
+                                            android:id="@+id/btn_like"
+                                            style="?android:attr/borderlessButtonStyle"
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginHorizontal="5dp"
+                                            android:layout_weight="1"
+                                            android:backgroundTint="@color/light_gray"
+                                            android:text="1.2k"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/blue"
+                                            app:icon="@drawable/baseline_favorite_24"
+                                            app:iconGravity="textStart"
+                                            app:iconTint="@color/blue" />
+
+                                        <com.google.android.material.button.MaterialButton
+                                            android:id="@+id/btn_comment"
+                                            style="?android:attr/borderlessButtonStyle"
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginHorizontal="5dp"
+                                            android:layout_weight="1"
+                                            android:backgroundTint="@color/light_gray"
+                                            android:clickable="true"
+                                            android:shadowDx="0"
+                                            android:shadowDy="0"
+                                            android:text="2.2k"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/gray"
+                                            app:icon="@drawable/outline_mode_comment_24"
+                                            app:iconGravity="textStart"
+                                            app:iconTint="@color/gray" />
+
+                                </LinearLayout>
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@id/comment_buttons"
+                                    tools:listitem="@layout/post_comment_item_layout"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                    android:id="@+id/recycle_view_comments"
+                                    android:layout_marginVertical="10dp"
+                                    tools:itemCount="5"
+                                    />
+                                <TextView
+                                    android:id="@+id/textView_no_comments"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/comment_buttons"
+                                    android:text="Be the first one to comment."
+                                    android:gravity="center"
+                                    android:layout_marginTop="50dp"
+                                    android:textSize="16sp"
+                                    />
+                        </RelativeLayout>
+                </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <RelativeLayout
+            android:id="@+id/comment_box_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            >
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:id="@+id/line"
+                        android:background="@color/light_gray"
+                        />
+
+                <EditText
+                    android:id="@+id/editText_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_comment_bg"
+                    android:backgroundTint="#EFEEEE"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_below="@id/line"
+                        android:gravity="top|left"
+                        android:hint="Write a comment"
+                        android:paddingHorizontal="17dp"
+                        android:minHeight="50dp"
+                        android:maxHeight="150dp"
+                        android:paddingVertical="15dp"
+                    android:layout_toLeftOf="@id/btn_add_comment"
+                        />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginEnd="15dp"
+                    android:id="@+id/btn_add_comment"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="8dp"
                     app:iconTint="@color/blue"
-                    app:iconGravity="textStart"
-                        />
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    style="@style/Widget.Material3.Button.IconButton.Filled"
-                    android:backgroundTint="@color/white"
-                    app:cornerRadius="1dp"
-                    app:icon="@drawable/outline_mode_comment_24"
-                    app:iconTint="@color/gray"
-                    app:iconGravity="textStart"
-                        />
-
-        </LinearLayout>
-</LinearLayout>
+                    app:iconSize="25dp"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    app:icon="@drawable/baseline_send_24"
+                    />
+        </RelativeLayout>
+</RelativeLayout>

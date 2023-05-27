@@ -13,7 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="@color/white"
+        android:background="@drawable/clickable_bg"
+        android:clickable="true"
+        android:id="@+id/post_header"
+
         android:orientation="vertical"
         >
        <LinearLayout
@@ -25,7 +28,7 @@
                android:layout_width="50dp"
                android:layout_height="50dp"
                android:layout_gravity="center"
-               android:src="@drawable/belle_profile"
+               android:src="@drawable/gray"
                app:civ_border_width="2dp"
                app:civ_border_color="@color/white"/>
            <LinearLayout
@@ -37,7 +40,7 @@
                    android:id="@+id/textview_name"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Belle Soriano"
+                   android:text="..."
                    android:layout_marginStart="10dp"
                    android:layout_gravity="center_vertical"
                    android:textSize="16sp"
@@ -48,6 +51,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:text="4h ago"
+                   android:visibility="gone"
                    android:layout_marginTop="5dp"
                    android:layout_marginStart="10dp"
                    android:layout_gravity="center_vertical"
@@ -61,7 +65,7 @@
             android:id="@id/textView_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello Everyone!"
+            android:text="..."
             android:textSize="16sp"
             android:layout_marginTop="10dp"
             />
@@ -73,6 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/gray"
         />
 
     <RelativeLayout
@@ -92,6 +97,7 @@
             android:src="@drawable/outline_favorite_border_24"
             />
         <TextView
+            android:id="@+id/textView_likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1.2k"

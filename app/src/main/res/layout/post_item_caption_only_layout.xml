@@ -12,14 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:background="@color/white"
+        android:background="@drawable/clickable_bg"
+        android:clickable="true"
+        android:id="@+id/post_header"
         >
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:src="@drawable/belle_profile"
+            android:src="@drawable/gray"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/white"/>
        <LinearLayout
@@ -31,7 +33,7 @@
                android:id="@+id/textview_name"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:text="Belle Soriano"
+               android:text="..."
                android:layout_marginStart="10dp"
                android:layout_gravity="center_vertical"
                android:textSize="16sp"
@@ -41,7 +43,7 @@
                android:id="@+id/textview_date_time"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:text="4h ago"
+               android:text=""
                android:layout_marginTop="5dp"
                android:layout_marginStart="10dp"
                android:layout_gravity="center_vertical"
@@ -58,17 +60,18 @@
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:padding="20dp"
-        android:background="@drawable/post_background_blue_500"
+        android:background="@color/gray_100"
+
         >
         <TextView
             android:id="@+id/textView_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello Everyone!"
+            android:text="..."
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="22sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold"
             />
     </LinearLayout>
@@ -79,6 +82,7 @@
         android:padding="10dp"
         android:background="@color/white"
         android:elevation="1dp"
+        android:layout_marginBottom="1dp"
         >
         <ImageView
             android:id="@+id/image_view_like_indicator"
@@ -86,10 +90,10 @@
             android:layout_centerVertical="true"
             android:layout_height="20dp"
             app:tint="@color/blue"
-
             android:src="@drawable/outline_favorite_border_24"
             />
         <TextView
+            android:id="@+id/textView_likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1.2k"
@@ -101,11 +105,11 @@
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:background="@color/white"
         android:theme="@style/Theme.KonekQ.Material"
         android:elevation="0dp"
-        android:padding="5dp"
+        android:paddingHorizontal="5dp"
         >
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_like"
@@ -116,12 +120,12 @@
             app:icon="@drawable/baseline_favorite_24"
             app:iconGravity="textStart"
             android:text="1.2k"
-            android:background="@android:color/transparent"
+            android:backgroundTint="@color/light_gray"
             android:textColor="@color/blue"
             android:layout_marginHorizontal="5dp"
             app:iconTint="@color/blue"
             style="?android:attr/borderlessButtonStyle"
-             />
+            />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_comment"
             android:layout_width="0dp"
@@ -131,8 +135,9 @@
             app:icon="@drawable/outline_mode_comment_24"
             app:iconGravity="textStart"
             android:text="2.2k"
-            android:background="@android:color/transparent"
+            android:clickable="true"
             android:textColor="@color/gray"
+            android:backgroundTint="@color/light_gray"
             app:iconTint="@color/gray"
             style="?android:attr/borderlessButtonStyle"
             android:layout_marginHorizontal="5dp"

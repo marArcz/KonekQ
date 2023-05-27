@@ -12,4 +12,8 @@ public class ErrorCodes {
     public static final String GETTING_POST_BACKGROUNDS = "1009";
     public static final String ADDING_CAPTION_ONLY_POST = "1010";
     public static final String ADDING_CAPTION_WITH_PHOTO = "1011";
+    public static final String LIKE_POST = "1012";
+    public static final String GETTING_COMMENTS = "1013";
+    public static final String ADDING_COMMENT = "1013";
+    public static final String DELETING_COMMENT = "1014";
 }

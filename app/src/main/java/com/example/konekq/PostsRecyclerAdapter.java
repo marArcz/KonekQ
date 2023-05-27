@@ -2,26 +2,46 @@ package com.example.konekq;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.example.konekq.BackendAPI.APIResponse;
+import com.example.konekq.BackendAPI.RetrofitClient;
+import com.example.konekq.Models.PostBackground;
 import com.example.konekq.Models.PostPhoto;
 import com.example.konekq.Models.Posts;
+import com.google.android.material.button.MaterialButton;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private interface RequestCompleteListener{
+        void onComplete(Posts newPosts);
+    }
     private final int VIEW_TYPE_LOADING = 100;
     private final Context context;
     ArrayList<Posts> posts;
@@ -75,11 +95,63 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void addItemView(RecyclerView.ViewHolder holder, int position){
         Posts post = posts.get(position);
-
         if(holder instanceof PostCaptionOnlyViewHolder){
             PostCaptionOnlyViewHolder viewHolder = (PostCaptionOnlyViewHolder) holder;
             Glide.with(context).load(post.getUser().getProfile_photo()).into(viewHolder.imageViewProfile);
             viewHolder.textViewCaption.setText(post.getContent());
+            viewHolder.textViewLikes.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            if(!post.isLiked()){
+                viewHolder.btnLike.setText("");
+                viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
+            }else{
+                viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            }
+            viewHolder.postHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,ViewPostActivity.class);
+                    intent.putExtra("post_id",post.getId());
+                    context.startActivity(intent);
+                }
+            });
+            viewHolder.btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!post.isLiked()){
+                        viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.baseline_favorite_24));
+                    }else{
+                        viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
+                    }
+                    likePost(post, new RequestCompleteListener() {
+                        @Override
+                        public void onComplete(Posts newPosts) {
+                            posts.set(posts.indexOf(post),newPosts);
+                            viewHolder.textViewLikes.setText(newPosts.getLikes() > 1000? String.valueOf(newPosts.getLikes()).charAt(0)+"k": String.valueOf(newPosts.getLikes()));
+                            if(!newPosts.isLiked()){
+                                viewHolder.btnLike.setText("");
+                                viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
+                            }else{
+                                viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(newPosts.getLikes()).charAt(0)+"k": String.valueOf(newPosts.getLikes()));
+                            }
+                        }
+                    });
+                }
+            });
+            if(post.getBackground() != null){
+                Glide.with(context).load(post.getBackground().getSrc())
+                        .into(new CustomTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                viewHolder.postCaptionLayout.setBackground(resource);
+                                viewHolder.textViewCaption.setTextColor(post.getBackground().getText_color() == PostBackground.TEXT_BLACK? Color.BLACK:Color.WHITE);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                            }
+                        });
+            }
             viewHolder.textViewName.setText(String.format("%s %s", post.getUser().getFirstname(),post.getUser().getLastname()));
 
         }else{
@@ -87,7 +159,36 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             Glide.with(context).load(post.getUser().getProfile_photo()).into(viewHolder.imageViewProfile);
             viewHolder.textViewName.setText(String.format("%s %s", post.getUser().getFirstname(),post.getUser().getLastname()));
             viewHolder.textViewCaption.setText(post.getContent());
-
+            viewHolder.textViewLikes.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            if(!post.isLiked()){
+                viewHolder.btnLike.setText("");
+                viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
+            }else{
+                viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            }
+            viewHolder.btnLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!post.isLiked()){
+                        viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.baseline_favorite_24));
+                    }else{
+                        viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
+                    }
+                    likePost(post, new RequestCompleteListener() {
+                        @Override
+                        public void onComplete(Posts newPost) {
+                            posts.set(posts.indexOf(post),newPost);
+                            viewHolder.textViewLikes.setText(newPost.getLikes() > 1000? String.valueOf(newPost.getLikes()).charAt(0)+"k": String.valueOf(newPost.getLikes()));
+                            if(!newPost.isLiked()){
+                                viewHolder.btnLike.setText("");
+                                viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
+                            }else{
+                                viewHolder.btnLike.setText(newPost.getLikes() > 1000? String.valueOf(newPost.getLikes()).charAt(0)+"k": String.valueOf(newPost.getLikes()));
+                            }
+                        }
+                    });
+                }
+            });
             Glide.with(context).load(post.getPhoto()).into(viewHolder.imageView);
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,10 +200,12 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                     context.startActivity(intent);
                 }
             });
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            viewHolder.postHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context,ViewPostActivity.class));
+                    Intent intent = new Intent(context,ViewPostActivity.class);
+                    intent.putExtra("post_id",post.getId());
+                    context.startActivity(intent);
                 }
             });
         }
@@ -112,25 +215,112 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     }
 
+    private void likePost(Posts posts, RequestCompleteListener requestCompleteListener){
+        if(posts.isLiked()){
+            removeLike(posts, requestCompleteListener);
+        }else{
+            addLike(posts, requestCompleteListener);
+        }
+    }
+
+    public void addLike(Posts posts, RequestCompleteListener requestCompleteListener){
+        String token = AppManager.getToken(context);
+        Call<APIResponse> likePostCall = RetrofitClient.getPostService(token).likePost(posts.getId());
+        String errorCode = ErrorCodes.LIKE_POST;
+        likePostCall.enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                if(response.body() == null){
+                    Toast.makeText(context, "Server response is empty!", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(response.body().isSuccess()){
+                        Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
+                        posts.setLikes(posts.getLikes()+1);
+                        posts.setLiked(true);
+                    }else{
+                        new CustomAlertDialog(context)
+                                .setMessage(response.body().getMessage())
+                                .showError();
+                    }
+                }
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                new CustomAlertDialog(context)
+                        .showError(errorCode);
+                Log.d(errorCode,t.getMessage());
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
+            }
+        });
+    }
+    public void removeLike(Posts posts, RequestCompleteListener requestCompleteListener){
+        String token = AppManager.getToken(context);
+        Call<APIResponse> unlikePostCall = RetrofitClient.getPostService(token).unlikePost(posts.getId());
+        String errorCode = ErrorCodes.LIKE_POST;
+        unlikePostCall.enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                if(response.body() == null){
+                    Toast.makeText(context, "Server response is empty!", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(response.body().isSuccess()){
+                        Toast.makeText(context, "UnLiked", Toast.LENGTH_SHORT).show();
+                        posts.setLikes(posts.getLikes()-1);
+                        posts.setLiked(false);
+                    }else{
+                        new CustomAlertDialog(context)
+                                .setMessage(response.body().getMessage())
+                                .showError();
+                    }
+                }
+
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                new CustomAlertDialog(context)
+                        .showError(errorCode);
+                Log.d(errorCode,t.getMessage());
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
+            }
+        });
+    }
+
 
     //Item view holder
     public class PostCaptionOnlyViewHolder extends RecyclerView.ViewHolder{
         TextView textViewCaption, textViewDateTime;
-        TextView textViewName;
+        TextView textViewName,textViewLikes;
         ImageView imageViewProfile;
+        LinearLayout postCaptionLayout;
+        MaterialButton btnLike,btnComment;
+        LinearLayout postHeader;
+
         public PostCaptionOnlyViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.textview_name);
             textViewCaption = itemView.findViewById(R.id.textView_caption);
             textViewDateTime = itemView.findViewById(R.id.textview_date_time);
             imageViewProfile = itemView.findViewById(R.id.profile_photo);
+            postCaptionLayout = itemView.findViewById(R.id.post_caption_layout);
+            btnComment = itemView.findViewById(R.id.btn_comment);
+            btnLike = itemView.findViewById(R.id.btn_like);
+            textViewLikes = itemView.findViewById(R.id.textView_likes);
+            postHeader = itemView.findViewById(R.id.post_header);
+
         }
     }
 
     public class PostWithPhotosViewHolder extends RecyclerView.ViewHolder{
-        TextView textViewCaption,textViewName,textViewDateTime;
+        TextView textViewCaption,textViewName,textViewDateTime,textViewLikes;
         ImageView imageView;
         ImageView imageViewProfile;
+        MaterialButton btnLike,btnComment;
+        LinearLayout postHeader;
+
 
         public PostWithPhotosViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -139,6 +329,12 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             imageView = itemView.findViewById(R.id.imageView);
             textViewDateTime = itemView.findViewById(R.id.textview_date_time);
             imageViewProfile = itemView.findViewById(R.id.profile_photo);
+            btnComment = itemView.findViewById(R.id.btn_comment);
+            btnLike = itemView.findViewById(R.id.btn_like);
+            textViewLikes = itemView.findViewById(R.id.textView_likes);
+            postHeader = itemView.findViewById(R.id.post_header);
+
+
         }
     }
 

@@ -1,7 +1,8 @@
 package com.example.konekq.Models;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import com.example.konekq.BackendAPI.RetrofitClient;
+
+import java.sql.Timestamp;
 
 public class Posts {
 
@@ -12,11 +13,15 @@ public class Posts {
     private String content;
     private String photo;
 
-    private LocalDateTime date_posted;
+    private Timestamp date_posted;
     private int type = TYPE_CAPTION_ONLY;
     private boolean liked;
 
     private User user = null;
+
+    private PostBackground background = null;
+    private int likes = 0;
+    private int comments = 0;
 
     public Posts(User user, int id, int userId, String content) {
         this.user = user;
@@ -61,11 +66,11 @@ public class Posts {
         this.content = content;
     }
 
-    public LocalDateTime getDate_posted() {
+    public Timestamp getDate_posted() {
         return date_posted;
     }
 
-    public void setDate_posted(LocalDateTime date_posted) {
+    public void setDate_posted(Timestamp date_posted) {
         this.date_posted = date_posted;
     }
 
@@ -87,7 +92,7 @@ public class Posts {
     }
 
     public String getPhoto() {
-        return photo;
+        return RetrofitClient.baseUrl + photo;
     }
 
     public void setPhoto(String photo) {
@@ -108,5 +113,29 @@ public class Posts {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public PostBackground getBackground() {
+        return background;
+    }
+
+    public void setBackground(PostBackground background) {
+        this.background = background;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
     }
 }
