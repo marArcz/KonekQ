@@ -1,10 +1,13 @@
 package com.example.konekq.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.example.konekq.BackendAPI.RetrofitClient;
 
-import java.sql.Timestamp;
-
-public class Posts {
+public class Posts implements Parcelable {
 
     public static final int TYPE_CAPTION_ONLY = 0;
     public static final int TYPE_CAPTION_WITH_PHOTOS = 1;
@@ -13,7 +16,7 @@ public class Posts {
     private String content;
     private String photo;
 
-    private Timestamp date_posted;
+    private String created_at;
     private int type = TYPE_CAPTION_ONLY;
     private boolean liked;
 
@@ -22,6 +25,8 @@ public class Posts {
     private PostBackground background = null;
     private int likes = 0;
     private int comments = 0;
+    private String time_fetched;
+    private boolean owned;
 
     public Posts(User user, int id, int userId, String content) {
         this.user = user;
@@ -66,12 +71,12 @@ public class Posts {
         this.content = content;
     }
 
-    public Timestamp getDate_posted() {
-        return date_posted;
+    public String getCreated_at() {
+        return created_at;
     }
 
-    public void setDate_posted(Timestamp date_posted) {
-        this.date_posted = date_posted;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
     public int getType() {
@@ -137,5 +142,31 @@ public class Posts {
 
     public void setComments(int comments) {
         this.comments = comments;
+    }
+
+    public String getTime_fetched() {
+        return time_fetched;
+    }
+
+    public boolean isOwned() {
+        return owned;
+    }
+
+    public void setOwned(boolean owned) {
+        this.owned = owned;
+    }
+
+    public void setTime_fetched(String time_fetched) {
+        this.time_fetched = time_fetched;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+
     }
 }

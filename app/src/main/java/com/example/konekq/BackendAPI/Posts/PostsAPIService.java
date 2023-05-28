@@ -34,6 +34,13 @@ public interface PostsAPIService {
     @GET("posts/all")
     Call<PostsAPIResponse> getAll();
 
+    @GET("posts/own")
+    Call<PostsAPIResponse> getOwnPosts();
+
+    @FormUrlEncoded
+    @POST("posts/delete")
+    Call<APIResponse> deletePost(@Field("post_id") int postId);
+
     @GET("posts/backgrounds")
     Call<PostBackgroundAPIResponse> getBackgrounds();
 

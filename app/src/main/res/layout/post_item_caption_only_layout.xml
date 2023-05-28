@@ -8,7 +8,7 @@
     android:paddingBottom="10dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -17,6 +17,8 @@
         android:id="@+id/post_header"
         >
         <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:id="@+id/profile_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -25,7 +27,9 @@
             app:civ_border_width="2dp"
             app:civ_border_color="@color/white"/>
        <LinearLayout
-           android:layout_width="match_parent"
+           android:layout_toRightOf="@id/profile_photo"
+           android:layout_toLeftOf="@id/btn_options"
+           android:layout_width="wrap_content"
            android:layout_height="match_parent"
            android:orientation="vertical"
            >
@@ -52,8 +56,19 @@
                />
 
        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_more_horiz_24"
+            app:iconTint="@color/gray"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/post_caption_layout"
@@ -90,7 +105,7 @@
             android:layout_centerVertical="true"
             android:layout_height="20dp"
             app:tint="@color/blue"
-            android:src="@drawable/outline_favorite_border_24"
+            android:src="@drawable/baseline_favorite_24"
             />
         <TextView
             android:id="@+id/textView_likes"

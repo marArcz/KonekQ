@@ -4,34 +4,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.konekq.BackendAPI.APIResponse;
 import com.example.konekq.BackendAPI.RetrofitClient;
+import com.example.konekq.Models.Comment;
 import com.example.konekq.Models.PostBackground;
-import com.example.konekq.Models.PostPhoto;
 import com.example.konekq.Models.Posts;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
-import org.w3c.dom.Text;
-
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -42,14 +42,30 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     private interface RequestCompleteListener{
         void onComplete(Posts newPosts);
     }
+
+    public static interface DataChangedListener{
+        void OnChanged(ArrayList<Posts> posts);
+    }
+    public static interface PostClickedListener{
+        void onClicked(Posts post);
+    }
+
+    DataChangedListener dataChangedListener;
     private final int VIEW_TYPE_LOADING = 100;
     private final Context context;
     ArrayList<Posts> posts;
+    private int viewedPostId;
+    PostClickedListener postClickedListener;
 
-    public PostsRecyclerAdapter(Context context,ArrayList<Posts> posts) {
+
+    public PostsRecyclerAdapter(Context context,ArrayList<Posts> posts, DataChangedListener dataChangedListener, PostClickedListener postClickedListener) {
         this.context = context;
         this.posts = posts;
+
+        this.dataChangedListener = dataChangedListener;
+        this.postClickedListener = postClickedListener;
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -93,25 +109,57 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         return posts.size();
     }
 
+
     public void addItemView(RecyclerView.ViewHolder holder, int position){
         Posts post = posts.get(position);
         if(holder instanceof PostCaptionOnlyViewHolder){
             PostCaptionOnlyViewHolder viewHolder = (PostCaptionOnlyViewHolder) holder;
             Glide.with(context).load(post.getUser().getProfile_photo()).into(viewHolder.imageViewProfile);
             viewHolder.textViewCaption.setText(post.getContent());
-            viewHolder.textViewLikes.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            if(post.getLikes() > 0){
+                viewHolder.textViewLikes.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            }else{
+                viewHolder.textViewLikes.setText("");
+            }
+            if(post.getCreated_at() != null && !post.getCreated_at().isBlank() && (post.getTime_fetched() != null)){
+                Timestamp timestamp = Timestamp.valueOf(post.getCreated_at());
+                String timePassed =
+                        String.valueOf(DateUtils.getRelativeTimeSpanString(timestamp.getTime(), Timestamp.valueOf(post.getTime_fetched()).getTime(), 0));
+                viewHolder.textViewDateTime.setText(timePassed);
+
+            }
+
+            if(post.isOwned()){
+                viewHolder.btnOptions.setVisibility(View.VISIBLE);
+                viewHolder.btnOptions.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showBottomSheetDialog(post);
+                    }
+                });
+            }
+
+            viewHolder.btnComment.setText(String.valueOf(post.getComments()));
+            viewHolder.btnComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(postClickedListener != null) postClickedListener.onClicked(post);
+                }
+            });
             if(!post.isLiked()){
                 viewHolder.btnLike.setText("");
                 viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
             }else{
-                viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+                if(post.getLikes() > 0){
+                    viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+                }else{
+                    viewHolder.btnLike.setText("");
+                }
             }
             viewHolder.postHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,ViewPostActivity.class);
-                    intent.putExtra("post_id",post.getId());
-                    context.startActivity(intent);
+                    if(postClickedListener != null) postClickedListener.onClicked(post);
                 }
             });
             viewHolder.btnLike.setOnClickListener(new View.OnClickListener() {
@@ -126,17 +174,13 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                         @Override
                         public void onComplete(Posts newPosts) {
                             posts.set(posts.indexOf(post),newPosts);
-                            viewHolder.textViewLikes.setText(newPosts.getLikes() > 1000? String.valueOf(newPosts.getLikes()).charAt(0)+"k": String.valueOf(newPosts.getLikes()));
-                            if(!newPosts.isLiked()){
-                                viewHolder.btnLike.setText("");
-                                viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
-                            }else{
-                                viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(newPosts.getLikes()).charAt(0)+"k": String.valueOf(newPosts.getLikes()));
-                            }
+                            notifyItemChanged(posts.indexOf(post));
+                            if(dataChangedListener != null) dataChangedListener.OnChanged(posts);
                         }
                     });
                 }
             });
+
             if(post.getBackground() != null){
                 Glide.with(context).load(post.getBackground().getSrc())
                         .into(new CustomTarget<Drawable>() {
@@ -159,12 +203,45 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             Glide.with(context).load(post.getUser().getProfile_photo()).into(viewHolder.imageViewProfile);
             viewHolder.textViewName.setText(String.format("%s %s", post.getUser().getFirstname(),post.getUser().getLastname()));
             viewHolder.textViewCaption.setText(post.getContent());
-            viewHolder.textViewLikes.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            if(post.getLikes() > 0){
+                viewHolder.textViewLikes.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+            }else{
+                viewHolder.textViewLikes.setText("");
+            }
+            if(post.getCreated_at() != null && !post.getCreated_at().isBlank() && (post.getTime_fetched() != null)){
+                Timestamp timestamp = Timestamp.valueOf(post.getCreated_at());
+                String timePassed =
+                        String.valueOf(DateUtils.getRelativeTimeSpanString(timestamp.getTime(), Timestamp.valueOf(post.getTime_fetched()).getTime(), 0));
+                viewHolder.textViewDateTime.setText(timePassed);
+            }
+            if(post.isOwned()){
+                viewHolder.btnOptions.setVisibility(View.VISIBLE);
+                viewHolder.btnOptions.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showBottomSheetDialog(post);
+                    }
+                });
+            }
+
+            viewHolder.btnComment.setText(String.valueOf(post.getComments()));
+
+            viewHolder.btnComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(postClickedListener != null) postClickedListener.onClicked(post);
+                }
+            });
             if(!post.isLiked()){
                 viewHolder.btnLike.setText("");
                 viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
             }else{
-                viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+                if(post.getLikes() > 0){
+                    viewHolder.btnLike.setText(post.getLikes() > 1000? String.valueOf(post.getLikes()).charAt(0)+"k": String.valueOf(post.getLikes()));
+                }else{
+                    viewHolder.btnLike.setText("");
+                }
+
             }
             viewHolder.btnLike.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -178,13 +255,8 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                         @Override
                         public void onComplete(Posts newPost) {
                             posts.set(posts.indexOf(post),newPost);
-                            viewHolder.textViewLikes.setText(newPost.getLikes() > 1000? String.valueOf(newPost.getLikes()).charAt(0)+"k": String.valueOf(newPost.getLikes()));
-                            if(!newPost.isLiked()){
-                                viewHolder.btnLike.setText("");
-                                viewHolder.btnLike.setIcon(context.getDrawable(R.drawable.outline_favorite_border_24));
-                            }else{
-                                viewHolder.btnLike.setText(newPost.getLikes() > 1000? String.valueOf(newPost.getLikes()).charAt(0)+"k": String.valueOf(newPost.getLikes()));
-                            }
+                            notifyItemChanged(posts.indexOf(post));
+                            if(dataChangedListener != null) dataChangedListener.OnChanged(posts);
                         }
                     });
                 }
@@ -203,12 +275,70 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewHolder.postHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,ViewPostActivity.class);
-                    intent.putExtra("post_id",post.getId());
-                    context.startActivity(intent);
+                    if(postClickedListener != null) postClickedListener.onClicked(post);
                 }
             });
         }
+    }
+
+    private void showBottomSheetDialog(Posts post) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+        View view =
+                LayoutInflater.from(context).inflate(R.layout.comments_bottom_sheet_layout, null, false);
+        bottomSheetDialog.setContentView(view);
+        ArrayList<BottomSheetMenuAdapter.Option> options = new ArrayList<>();
+        options.add(new BottomSheetMenuAdapter.Option(R.drawable.baseline_edit_dark_12, "Edit Post"));
+        options.add(new BottomSheetMenuAdapter.Option(R.drawable.baseline_delete_24_dark, "Delete Post"));
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        BottomSheetMenuAdapter adapter =
+                new BottomSheetMenuAdapter(options, context, new BottomSheetMenuAdapter.ItemClickedListener() {
+                    @Override
+                    public void onClick(BottomSheetMenuAdapter.Option option, int position) {
+                        switch (position) {
+                            case 0:
+                                break;
+                            case 1:
+                                bottomSheetDialog.dismiss();
+                                deletePost(post);
+                                break;
+                        }
+                    }
+                });
+        recyclerView.setAdapter(adapter);
+
+        bottomSheetDialog.show();
+    }
+
+    private void deletePost(Posts post) {
+        String token = AppManager.getToken(context);
+        Call<APIResponse> deletePost = RetrofitClient.getPostService(token).deletePost(post.getId());
+        deletePost.enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                if(response.body() == null){
+                    Toast.makeText(context, "Server response is empty!", Toast.LENGTH_SHORT).show();
+                }else{
+                 if(response.body().isSuccess()){
+                     int index = posts.indexOf(post);
+                     posts.remove(index);
+                     notifyItemRemoved(index);
+                     Toast.makeText(context, "Post was successfully removed!", Toast.LENGTH_SHORT).show();
+                 }else{
+                     new CustomAlertDialog(context)
+                             .setMessage(response.body().getMessage())
+                             .showError();
+                 }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                new CustomAlertDialog(context)
+                        .setMessage(t.getMessage())
+                        .showError();
+            }
+        });
     }
 
     private void showLoadingView(LoadingViewHolder loadingViewHolder, int position){
@@ -297,7 +427,8 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         ImageView imageViewProfile;
         LinearLayout postCaptionLayout;
         MaterialButton btnLike,btnComment;
-        LinearLayout postHeader;
+        RelativeLayout postHeader;
+        MaterialButton btnOptions;
 
         public PostCaptionOnlyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -310,6 +441,7 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             btnLike = itemView.findViewById(R.id.btn_like);
             textViewLikes = itemView.findViewById(R.id.textView_likes);
             postHeader = itemView.findViewById(R.id.post_header);
+            btnOptions = itemView.findViewById(R.id.btn_options);
 
         }
     }
@@ -319,7 +451,8 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         ImageView imageView;
         ImageView imageViewProfile;
         MaterialButton btnLike,btnComment;
-        LinearLayout postHeader;
+        RelativeLayout postHeader;
+        MaterialButton btnOptions;
 
 
         public PostWithPhotosViewHolder(@NonNull View itemView) {
@@ -333,6 +466,7 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             btnLike = itemView.findViewById(R.id.btn_like);
             textViewLikes = itemView.findViewById(R.id.textView_likes);
             postHeader = itemView.findViewById(R.id.post_header);
+            btnOptions = itemView.findViewById(R.id.btn_options);
 
 
         }

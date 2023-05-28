@@ -4,12 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,7 +31,10 @@ import com.example.konekq.BackendAPI.Posts.PostDetailsAPIResponse;
 import com.example.konekq.BackendAPI.Posts.PostsAPIResponse;
 import com.example.konekq.BackendAPI.RetrofitClient;
 import com.example.konekq.Models.Comment;
+import com.example.konekq.Models.PostBackground;
 import com.example.konekq.Models.Posts;
+import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -36,10 +44,11 @@ import retrofit2.Response;
 
 public class ViewPostActivity extends AppCompatActivity {
     Button btnBack,btnAddComment;
+    MaterialButton btnLike,btnComment;
     int postId;
     EditText editTextComment;
     ImageView imageViewPostPhoto,imageViewProfile;
-    TextView textViewName,textViewCaption,textViewNameSecondary;
+    TextView textViewName,textViewCaption,textViewNameSecondary, textViewLikes;
     ArrayList<Comment> comments;
     RecyclerView recyclerViewComments;
     CommentsRecyclerAdapter commentsRecyclerAdapter;
@@ -47,6 +56,7 @@ public class ViewPostActivity extends AppCompatActivity {
     Posts post;
     CustomProgressDialog progressDialog;
     TextView textViewNoComments;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +64,10 @@ public class ViewPostActivity extends AppCompatActivity {
         token = AppManager.getToken(this);
         postId = getIntent().getIntExtra("post_id",0);
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        textViewLikes = findViewById(R.id.textView_likes);
+        btnLike = findViewById(R.id.btn_like);
+        btnComment = findViewById(R.id.btn_comment);
         comments = new ArrayList<>();
         recyclerViewComments = findViewById(R.id.recycle_view_comments);
         commentsRecyclerAdapter = new CommentsRecyclerAdapter(this,comments);
@@ -71,36 +85,122 @@ public class ViewPostActivity extends AppCompatActivity {
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 addComment(new RequestCompleteListener() {
                     @Override
-                    public void onComplete() {
+                    public void onComplete(Object o) {
+                        Toast.makeText(ViewPostActivity.this, "Your comment is added", Toast.LENGTH_SHORT).show();
                         if(comments.size() > 0) textViewNoComments.setVisibility(View.GONE);
-                        editTextComment.setText("");
-                        editTextComment.clearFocus();
                     }
                 });
+
+                editTextComment.setText("");
+                editTextComment.clearFocus();
+                hideKeyboard();
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(post.isLiked()){
+                    btnLike.setIcon(getDrawable(R.drawable.outline_favorite_border_24));
+                    removeLike(post, new RequestCompleteListener<Posts>() {
+                        @Override
+                        public void onComplete(@Nullable Posts data) {
+                            post = data;
+                            if(post.getLikes() > 0){
+                                textViewLikes.setText(String.valueOf(post.getLikes()));
+                            }else{
+                                textViewLikes.setText("");
+                            }
+                            btnLike.setText(String.valueOf(data.getLikes()));
+                        }
+                    });
+                }else{
+                    btnLike.setIcon(getDrawable(R.drawable.baseline_favorite_24));
+                    addLike(post, new RequestCompleteListener<Posts>() {
+                        @Override
+                        public void onComplete(@Nullable Posts data) {
+                            post = data;
+                            if(post.getLikes() > 0){
+                                textViewLikes.setText(String.valueOf(post.getLikes()));
+                            }else{
+                                textViewLikes.setText("");
+                            }
+                            btnLike.setText(String.valueOf(data.getLikes()));
+                        }
+                    });
+                }
+            }
+        });
+        progressDialog.show();
         //load post details
         loadPost(new RequestCompleteListener() {
             @Override
-            public void onComplete() {
+            public void onComplete(Object o) {
                 //load comments
                 loadComments(new RequestCompleteListener() {
                     @Override
-                    public void onComplete() {
+                    public void onComplete(Object o) {
+                        progressDialog.dismiss();
                         if(comments.size() > 0) textViewNoComments.setVisibility(View.GONE);
                     }
                 });
             }
         });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                progressDialog.show();
+                //load post details
+                loadPost(new RequestCompleteListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        //load comments
+                        loadComments(new RequestCompleteListener() {
+                            @Override
+                            public void onComplete(Object o) {
+                                swipeRefreshLayout.setRefreshing(false);
+                                progressDialog.dismiss();
+                                if(comments.size() > 0) textViewNoComments.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    private void hideKeyboard()
+    {
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        View view = this.getCurrentFocus();
+
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            InputMethodManager manager
+                    = (InputMethodManager)
+                    getSystemService(
+                            getApplicationContext().INPUT_METHOD_SERVICE);
+            manager
+                    .hideSoftInputFromWindow(
+                            view.getWindowToken(), 0);
+        }
     }
 
     private void addComment(RequestCompleteListener requestCompleteListener){
@@ -123,7 +223,7 @@ public class ViewPostActivity extends AppCompatActivity {
                     }
                 }
 
-                if(requestCompleteListener != null) requestCompleteListener.onComplete();
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(null);
             }
 
             @Override
@@ -131,9 +231,21 @@ public class ViewPostActivity extends AppCompatActivity {
                 new CustomAlertDialog(ViewPostActivity.this)
                         .showError(errorCode);
                 Log.d(errorCode,t.getMessage());
-                if(requestCompleteListener != null) requestCompleteListener.onComplete();
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(null);
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Gson gson = new Gson();
+        String postJson = gson.toJson(post);
+        Intent intent = new Intent();
+        intent.putExtra("postId",post.getId());
+        intent.putExtra("post",postJson);
+        setResult(122,intent);
+        finish();
     }
 
     private void loadPost(RequestCompleteListener requestCompleteListener){
@@ -156,6 +268,18 @@ public class ViewPostActivity extends AppCompatActivity {
                         textViewName.setText(name);
                         textViewNameSecondary.setText(name);
                         textViewCaption.setText(post.getContent());
+                        btnComment.setText(String.valueOf(post.getComments()));
+                        btnLike.setText(String.valueOf(post.getLikes()));
+                        if(post.getLikes() > 0){
+                            textViewLikes.setText(String.valueOf(post.getLikes()));
+                        }else{
+                            textViewLikes.setText("");
+                        }
+                        if(post.isLiked()){
+                            btnLike.setIcon(getDrawable(R.drawable.baseline_favorite_24));
+                        }else{
+                            btnLike.setIcon(getDrawable(R.drawable.outline_favorite_border_24));
+                        }
                         Glide.with(getApplicationContext())
                                 .load(post.getUser().getProfile_photo())
                                 .into(imageViewProfile);
@@ -166,8 +290,12 @@ public class ViewPostActivity extends AppCompatActivity {
                             textViewCaption.setGravity(Gravity.CENTER);
                             textViewCaption.setMinHeight(350);
                             textViewCaption.setTextSize(20f);
+                            if(post.getBackground() == null ){
+                                textViewCaption.setBackground(new ColorDrawable(getResources().getColor(R.color.gray_100)));
+                            }
 
                             if(post.getBackground() != null){
+                                textViewCaption.setTextColor(post.getBackground().getText_color() == PostBackground.TEXT_BLACK? Color.BLACK : Color.WHITE);
                                 Glide.with(getApplicationContext())
                                         .load(post.getBackground().getSrc())
                                         .into(new CustomTarget<Drawable>() {
@@ -186,7 +314,7 @@ public class ViewPostActivity extends AppCompatActivity {
                     }
                 }
 
-                if(requestCompleteListener != null) requestCompleteListener.onComplete();
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(null);
             }
 
             @Override
@@ -194,7 +322,75 @@ public class ViewPostActivity extends AppCompatActivity {
                 new CustomAlertDialog(ViewPostActivity.this)
                         .showError(errorCode);
                 Log.d(errorCode,t.getMessage());
-                if(requestCompleteListener != null) requestCompleteListener.onComplete();
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(null);
+            }
+        });
+    }
+
+    public void addLike(Posts posts, RequestCompleteListener<Posts> requestCompleteListener){
+        String token = AppManager.getToken(getApplicationContext());
+
+        Call<APIResponse> likePostCall = RetrofitClient.getPostService(token).likePost(posts.getId());
+        String errorCode = ErrorCodes.LIKE_POST;
+        likePostCall.enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                if(response.body() == null){
+                    Toast.makeText(getApplicationContext(), "Server response is empty!", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(response.body().isSuccess()){
+                        Toast.makeText(getApplicationContext(), "Liked", Toast.LENGTH_SHORT).show();
+                        posts.setLikes(posts.getLikes()+1);
+                        posts.setLiked(true);
+                    }else{
+                        new CustomAlertDialog(ViewPostActivity.this)
+                                .setMessage(response.body().getMessage())
+                                .showError();
+                    }
+                }
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                new CustomAlertDialog(ViewPostActivity.this)
+                        .showError(errorCode);
+                Log.d(errorCode,t.getMessage());
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
+            }
+        });
+    }
+
+    public void removeLike(Posts posts, RequestCompleteListener<Posts> requestCompleteListener){
+        String token = AppManager.getToken(getApplicationContext());
+        Call<APIResponse> unlikePostCall = RetrofitClient.getPostService(token).unlikePost(posts.getId());
+        String errorCode = ErrorCodes.LIKE_POST;
+        unlikePostCall.enqueue(new Callback<APIResponse>() {
+            @Override
+            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+                if(response.body() == null){
+                    Toast.makeText(getApplicationContext(), "Server response is empty!", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(response.body().isSuccess()){
+                        Toast.makeText(getApplicationContext(), "UnLiked", Toast.LENGTH_SHORT).show();
+                        posts.setLikes(posts.getLikes()-1);
+                        posts.setLiked(false);
+                    }else{
+                        new CustomAlertDialog(ViewPostActivity.this)
+                                .setMessage(response.body().getMessage())
+                                .showError();
+                    }
+                }
+
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
+            }
+
+            @Override
+            public void onFailure(Call<APIResponse> call, Throwable t) {
+                new CustomAlertDialog(getApplicationContext())
+                        .showError(errorCode);
+                Log.d(errorCode,t.getMessage());
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(posts);
             }
         });
     }
@@ -218,10 +414,9 @@ public class ViewPostActivity extends AppCompatActivity {
                         comments = response.body().getComments();
                         commentsRecyclerAdapter = new CommentsRecyclerAdapter(ViewPostActivity.this,comments);
                         recyclerViewComments.setAdapter(commentsRecyclerAdapter);
-                        Toast.makeText(ViewPostActivity.this, "Successfully loaded comments!", Toast.LENGTH_SHORT).show();
                     }
                 }
-                if(requestCompleteListener != null) requestCompleteListener.onComplete();
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(null);
             }
 
             @Override
@@ -229,7 +424,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 new CustomAlertDialog(ViewPostActivity.this)
                         .showError(errorCode);
                 Log.d(errorCode,t.getMessage());
-                if(requestCompleteListener != null) requestCompleteListener.onComplete();
+                if(requestCompleteListener != null) requestCompleteListener.onComplete(null);
             }
         });
     }

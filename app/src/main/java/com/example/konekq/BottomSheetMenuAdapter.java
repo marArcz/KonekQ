@@ -54,7 +54,7 @@ public class BottomSheetMenuAdapter extends RecyclerView.Adapter<BottomSheetMenu
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.comment_bottom_sheet_option,null,false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_bottom_sheet_option,parent,false));
     }
 
     @Override

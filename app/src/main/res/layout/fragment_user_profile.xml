@@ -46,7 +46,9 @@
                     android:layout_gravity="center"
                     android:src="@drawable/belle_profile"
                     app:civ_border_width="2dp"
-                    app:civ_border_color="@color/white"/>
+                    app:civ_border_color="@color/white"
+                    android:clickable="true"
+                    android:foreground="@drawable/profile_picture_bg"/>
             </LinearLayout>
 
 

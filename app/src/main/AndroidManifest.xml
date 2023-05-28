@@ -17,6 +17,9 @@
         android:theme="@style/Theme.KonekQ.AppCompat"
         tools:targetApi="31">
         <activity
+            android:name=".ChangeProfilePicActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddPostActivity"
             android:exported="false" />
         <activity
@@ -65,7 +68,8 @@
             android:theme="@style/Theme.KonekQ.AppCompat" />
         <activity
             android:name=".ActivitySplashScreen"
-            android:exported="true">
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -84,10 +88,10 @@
             android:theme="@style/Theme.KonekQ.AppCompat" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

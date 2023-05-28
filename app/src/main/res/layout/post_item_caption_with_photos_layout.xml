@@ -9,21 +9,24 @@
     android:paddingBottom="10dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="@drawable/clickable_bg"
         android:clickable="true"
         android:id="@+id/post_header"
-
         android:orientation="vertical"
         >
        <LinearLayout
+           android:id="@+id/linearlayout"
+
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+           android:layout_alignParentStart="true"
            >
            <de.hdodenhof.circleimageview.CircleImageView
+
                android:id="@+id/profile_photo"
                android:layout_width="50dp"
                android:layout_height="50dp"
@@ -31,46 +34,55 @@
                android:src="@drawable/gray"
                app:civ_border_width="2dp"
                app:civ_border_color="@color/white"/>
+
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="match_parent"
-               android:orientation="vertical"
-               >
+               android:orientation="vertical">
+
                <TextView
                    android:id="@+id/textview_name"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="..."
-                   android:layout_marginStart="10dp"
                    android:layout_gravity="center_vertical"
-                   android:textSize="16sp"
+                   android:layout_marginStart="10dp"
+                   android:text="..."
                    android:textColor="@color/black"
-                   />
+                   android:textSize="16sp" />
+
                <TextView
                    android:id="@+id/textview_date_time"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="4h ago"
-                   android:visibility="gone"
-                   android:layout_marginTop="5dp"
-                   android:layout_marginStart="10dp"
                    android:layout_gravity="center_vertical"
-                   android:textSize="12sp"
+                   android:layout_marginStart="10dp"
+                   android:layout_marginTop="5dp"
                    android:textColor="@color/gray"
-                   />
+                   android:textSize="12sp" />
 
            </LinearLayout>
        </LinearLayout>
+
         <TextView
             android:id="@id/textView_caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="..."
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/linearlayout"
+            android:textSize="16sp" />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/baseline_more_horiz_24"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            app:iconTint="@color/gray"
+            android:id="@+id/btn_options"
+            android:visibility="gone"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView"
@@ -94,7 +106,7 @@
             android:layout_height="20dp"
             app:tint="@color/blue"
 
-            android:src="@drawable/outline_favorite_border_24"
+            android:src="@drawable/baseline_favorite_24"
             />
         <TextView
             android:id="@+id/textView_likes"

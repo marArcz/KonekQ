@@ -22,6 +22,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
+                    android:background="@color/white"
                     app:icon="@drawable/baseline_arrow_back_24"
                     app:iconTint="@color/dark" />
 
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/topbar"
+            android:id="@+id/swipe_refresh_layout"
             android:layout_above="@id/comment_box_container">
                 <ScrollView
                     android:layout_width="match_parent"
@@ -48,11 +50,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                                 <RelativeLayout
-                                    android:layout_marginTop="10dp"
+                                    android:paddingHorizontal="10dp"
+                                    android:paddingVertical="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/secondary_bar"
-                                    android:layout_marginHorizontal="10dp"
+                                    android:background="@color/white"
                                     >
 
                                         <de.hdodenhof.circleimageview.CircleImageView
@@ -76,7 +79,8 @@
                                 <TextView
                                     android:id="@+id/textView_caption"
                                     android:paddingHorizontal="10dp"
-                                    android:layout_marginTop="10dp"
+                                    android:paddingVertical="5dp"
+                                    android:background="@color/white"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:minHeight="30dp"
@@ -104,7 +108,6 @@
                                     android:elevation="0dp"
                                     android:paddingHorizontal="8dp"
                                     android:paddingVertical="8dp"
-                                    android:text="1.2k"
                                     android:textSize="12sp" />
 
                                 <LinearLayout
@@ -126,10 +129,9 @@
                                             android:layout_marginHorizontal="5dp"
                                             android:layout_weight="1"
                                             android:backgroundTint="@color/light_gray"
-                                            android:text="1.2k"
                                             android:textAlignment="center"
                                             android:textColor="@color/blue"
-                                            app:icon="@drawable/baseline_favorite_24"
+                                            app:icon="@drawable/outline_favorite_border_24"
                                             app:iconGravity="textStart"
                                             app:iconTint="@color/blue" />
 
@@ -144,7 +146,6 @@
                                             android:clickable="true"
                                             android:shadowDx="0"
                                             android:shadowDy="0"
-                                            android:text="2.2k"
                                             android:textAlignment="center"
                                             android:textColor="@color/gray"
                                             app:icon="@drawable/outline_mode_comment_24"
@@ -216,6 +217,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="8dp"
                     app:iconTint="@color/blue"
+                    android:background="@color/white"
                     app:iconSize="25dp"
                     style="@style/Widget.Material3.Button.IconButton"
                     app:icon="@drawable/baseline_send_24"

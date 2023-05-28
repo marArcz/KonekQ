@@ -23,7 +23,7 @@ public class ActivitySplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         Intent intent;
         String token = AppManager.getToken(getApplicationContext());
-        if(!token.isEmpty()){
+        if(!token.isEmpty() && AppManager.getUser(getApplicationContext()) != null){
             //if user is logged in redirect to homepage
             intent = new Intent(ActivitySplashScreen.this, HomeActivity.class);
             Call<UserAPIResponse> getAccount = RetrofitClient.getUserService(token).getAccount();

@@ -1,5 +1,7 @@
 package com.example.konekq;
 
-public interface RequestCompleteListener {
-    void onComplete();
+import androidx.annotation.Nullable;
+
+public interface RequestCompleteListener<T> {
+    void onComplete(@Nullable T data);
 }

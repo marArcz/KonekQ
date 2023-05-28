@@ -4,6 +4,7 @@ public class ErrorCodes {
     public static final String SIGNUP = "1001";
     public static final String LOGIN = "1002";
     public static final String GETTING_POSTS = "1003";
+
     public static final String GETTING_ONE_POST = "1004";
     public static final String ADDING_POST = "1005";
     public static final String CHECK_EMAIL_ADDRESS = "1006";
@@ -16,4 +17,6 @@ public class ErrorCodes {
     public static final String GETTING_COMMENTS = "1013";
     public static final String ADDING_COMMENT = "1013";
     public static final String DELETING_COMMENT = "1014";
+    public static final String GETTING_OWN_POSTS = "1015";
+    public static final String CHANGING_PROFILE_PICTURE = "1015";
 }

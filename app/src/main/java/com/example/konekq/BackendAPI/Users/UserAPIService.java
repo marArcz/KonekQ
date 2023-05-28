@@ -4,11 +4,14 @@ import com.example.konekq.BackendAPI.APIResponse;
 import com.example.konekq.Models.User;
 import com.google.gson.JsonObject;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface UserAPIService {
 
@@ -37,5 +40,10 @@ public interface UserAPIService {
     @FormUrlEncoded
     @POST("users/verification/verify")
     Call<APIResponse> verifyEmail(@Field("verification_code") String verificationCode);
+
+    //needs user bearer token
+    @Multipart
+    @POST("users/change-profile")
+    Call<UserAPIResponse> changeProfilePicture(@Part MultipartBody.Part photo);
 
 }

@@ -22,6 +22,6 @@ public interface CommentsAPIService {
     @FormUrlEncoded
     @POST("/comments/delete") // needs token
     Call<APIResponse> deleteComment(
-            @Field("id") int commentId
+            @Field("comment_id") int commentId
     );
 }
